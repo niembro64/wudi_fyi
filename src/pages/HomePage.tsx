@@ -15,9 +15,21 @@ const HomePage: React.FC = () => {
           
           {currentSeason && (
             <div className="cta-buttons">
-              <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${currentSeason.year}`} className="cta-button">
-                View {currentSeason.season} {currentSeason.year} Schedule
-              </Link>
+              {currentSeason.leagues.map(league => {
+                const leagueType = league.type === 'Co-ed' ? 'coed' : 
+                                   league.type === 'Women\'s' ? 'womens' :
+                                   league.type === 'Recreational' ? 'recreational' : '';
+                
+                return (
+                  <Link 
+                    key={league.id}
+                    to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`} 
+                    className="cta-button"
+                  >
+                    View {league.name}
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
@@ -76,24 +88,33 @@ const HomePage: React.FC = () => {
           )}
           
           <div className="leagues-grid">
-            {currentSeason.leagues.map(league => (
-              <div key={league.id} className="league-card">
-                <h3>{league.name}</h3>
-                <p>{league.description}</p>
-                
-                {league.schedule && (
-                  <div className="schedule-info">
-                    <p><strong>Start Date:</strong> {new Date(league.schedule.start_date).toLocaleDateString()}</p>
-                    <p><strong>End Date:</strong> {new Date(league.schedule.end_date).toLocaleDateString()}</p>
-                    <p><strong>Game Days:</strong> {getDayOfWeek(league.schedule.start_date)}s</p>
-                  </div>
-                )}
-                
-                <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${currentSeason.year}`} className="view-schedule">
-                  View Schedule
-                </Link>
-              </div>
-            ))}
+            {currentSeason.leagues.map(league => {
+              const leagueType = league.type === 'Co-ed' ? 'coed' : 
+                                 league.type === 'Women\'s' ? 'womens' :
+                                 league.type === 'Recreational' ? 'recreational' : '';
+              
+              return (
+                <div key={league.id} className="league-card">
+                  <h3>{league.name}</h3>
+                  <p>{league.description}</p>
+                  
+                  {league.schedule && (
+                    <div className="schedule-info">
+                      <p><strong>Start Date:</strong> {new Date(league.schedule.start_date).toLocaleDateString()}</p>
+                      <p><strong>End Date:</strong> {new Date(league.schedule.end_date).toLocaleDateString()}</p>
+                      <p><strong>Game Days:</strong> {getDayOfWeek(league.schedule.start_date)}s</p>
+                    </div>
+                  )}
+                  
+                  <Link 
+                    to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`} 
+                    className="view-schedule"
+                  >
+                    View Schedule
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </section>
       )}
@@ -127,20 +148,6 @@ const HomePage: React.FC = () => {
             Ask your captain for the Slack invite link or email {wudiInfo.contact_email || 'theboard@wudi.org'}
           </p>
         )}
-      </section>
-      
-      <section className="quick-links">
-        <h2>Quick Links</h2>
-        <div className="links-grid">
-          <Link to="/about" className="quick-link">About WUDI</Link>
-          <Link to="/contact" className="quick-link">Contact Us</Link>
-          <Link to="/teams" className="quick-link">Teams</Link>
-          {currentSeason && (
-            <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${currentSeason.year}`} className="quick-link">
-              Full Schedule
-            </Link>
-          )}
-        </div>
       </section>
     </div>
   );

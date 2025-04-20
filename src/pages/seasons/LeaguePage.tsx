@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { sampleSeasons } from '../../data/sampleData';
-import { Season, LeagueType } from '../../types';
+import { Season, LeagueType, Game } from '../../types';
 
 const LeaguePage: React.FC = () => {
   const { season, year, leagueType } = useParams<{ season?: string; year?: string; leagueType?: string }>();
@@ -185,20 +185,25 @@ const LeaguePage: React.FC = () => {
                 </tr>
               </thead>
               <tbody>
-                {leagueData.schedule.games.map(game => (
-                  <tr key={game.id}>
-                    <td>{new Date(game.date).toLocaleDateString()}</td>
-                    <td>{game.time}</td>
-                    <td>{game.home_team.name}</td>
-                    <td>{game.away_team.name}</td>
-                    <td>{game.field.name}</td>
-                    <td>
-                      {game.home_score !== null && game.away_score !== null
-                        ? `${game.home_score} - ${game.away_score}`
-                        : 'TBD'}
-                    </td>
-                  </tr>
-                ))}
+                {leagueData.schedule.games.map(game => {
+                  const gameClass = getGameRowClass(game);
+                  const formattedTime = formatTime(game.time);
+                  
+                  return (
+                    <tr key={game.id} className={gameClass}>
+                      <td data-label="Date">{formatDate(game.date)}</td>
+                      <td data-label="Time">{formattedTime}</td>
+                      <td data-label="Home">{game.home_team.name}</td>
+                      <td data-label="Away">{game.away_team.name}</td>
+                      <td data-label="Field">{game.field.name}</td>
+                      <td data-label="Score">
+                        {game.home_score !== null && game.away_score !== null
+                          ? `${game.home_score} - ${game.away_score}`
+                          : 'TBD'}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -269,6 +274,45 @@ const LeaguePage: React.FC = () => {
       </section>
     </div>
   );
+};
+
+// Helper functions
+const formatDate = (dateString: string, includeDay: boolean = false): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: includeDay ? 'long' : 'short',
+    month: 'short',
+    day: 'numeric',
+    year: includeDay ? 'numeric' : undefined
+  };
+  
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', options);
+};
+
+const formatTime = (timeString: string): string => {
+  // Assuming timeString is in 24-hour format (e.g., "18:00")
+  const [hours, minutes] = timeString.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12;
+  return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+};
+
+const getGameRowClass = (game: Game): string => {
+  if (game.status === 'Cancelled') {
+    return 'cancelled';
+  } else if (game.home_score !== null && game.away_score !== null) {
+    return 'completed';
+  } else {
+    const gameDate = new Date(game.date);
+    const today = new Date();
+    if (gameDate.toDateString() === today.toDateString()) {
+      return 'today';
+    } else if (gameDate > today) {
+      return 'upcoming';
+    } else {
+      return '';
+    }
+  }
 };
 
 export default LeaguePage;

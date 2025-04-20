@@ -212,18 +212,18 @@ const SeasonPage: React.FC = () => {
                                 key={game.id} 
                                 className={getGameRowClass(game)}
                               >
-                                <td>{formatDate(game.date)}</td>
-                                <td>{game.home_team.name}</td>
-                                <td>{game.away_team.name}</td>
-                                <td>{game.field.name}</td>
-                                <td>{league?.type || 'Unknown'}</td>
-                                <td>
+                                <td data-label="Date">{formatDate(game.date)}</td>
+                                <td data-label="Home">{game.home_team.name}</td>
+                                <td data-label="Away">{game.away_team.name}</td>
+                                <td data-label="Field">{game.field.name}</td>
+                                <td data-label="League">{league?.type || 'Unknown'}</td>
+                                <td data-label="Score">
                                   {game.home_score !== null && game.away_score !== null
                                     ? `${game.home_score} - ${game.away_score}`
                                     : 'TBD'}
                                 </td>
                                 {gamesByWeek[week]['18:00'].some(g => g.round) && (
-                                  <td>{game.round || '-'}</td>
+                                  <td data-label="Round">{game.round || '-'}</td>
                                 )}
                               </tr>
                             );
@@ -263,18 +263,18 @@ const SeasonPage: React.FC = () => {
                                 key={game.id} 
                                 className={getGameRowClass(game)}
                               >
-                                <td>{formatDate(game.date)}</td>
-                                <td>{game.home_team.name}</td>
-                                <td>{game.away_team.name}</td>
-                                <td>{game.field.name}</td>
-                                <td>{league?.type || 'Unknown'}</td>
-                                <td>
+                                <td data-label="Date">{formatDate(game.date)}</td>
+                                <td data-label="Home">{game.home_team.name}</td>
+                                <td data-label="Away">{game.away_team.name}</td>
+                                <td data-label="Field">{game.field.name}</td>
+                                <td data-label="League">{league?.type || 'Unknown'}</td>
+                                <td data-label="Score">
                                   {game.home_score !== null && game.away_score !== null
                                     ? `${game.home_score} - ${game.away_score}`
                                     : 'TBD'}
                                 </td>
                                 {gamesByWeek[week]['18:40'].some(g => g.round) && (
-                                  <td>{game.round || '-'}</td>
+                                  <td data-label="Round">{game.round || '-'}</td>
                                 )}
                               </tr>
                             );

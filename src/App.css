@@ -549,21 +549,28 @@ p {
 }
 
 .schedule-table tr.completed {
-  background-color: #f0f8ff;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border-left: 4px solid #1565c0;
 }
 
 .schedule-table tr.upcoming {
   background-color: #f5f5f5;
+  border-left: 4px solid #757575;
 }
 
 .schedule-table tr.today {
   background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: bold;
+  border-left: 4px solid #2e7d32;
 }
 
 .schedule-table tr.cancelled {
   background-color: #ffebee;
   color: #d32f2f;
   text-decoration: line-through;
+  border-left: 4px solid #d32f2f;
 }
 
 .schedule-calendar-view {
@@ -615,23 +622,27 @@ p {
 }
 
 .game-card.completed {
-  border-left-color: #1976d2;
-  background-color: #f0f8ff;
+  border-left-color: #1565c0;
+  background-color: #e3f2fd;
+  color: #1565c0;
 }
 
 .game-card.upcoming {
-  border-left-color: #2e7d32;
-  background-color: #f1f8e9;
+  border-left-color: #757575;
+  background-color: #f5f5f5;
 }
 
 .game-card.today {
-  border-left-color: #f57c00;
-  background-color: #fff3e0;
+  border-left-color: #2e7d32;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: bold;
 }
 
 .game-card.cancelled {
   border-left-color: #d32f2f;
   background-color: #ffebee;
+  color: #d32f2f;
   text-decoration: line-through;
 }
 
@@ -726,18 +737,18 @@ p {
 }
 
 .legend-color.upcoming {
-  background-color: #f1f8e9;
-  border: 1px solid #2e7d32;
+  background-color: #f5f5f5;
+  border: 1px solid #757575;
 }
 
 .legend-color.completed {
-  background-color: #f0f8ff;
-  border: 1px solid #1976d2;
+  background-color: #e3f2fd;
+  border: 1px solid #1565c0;
 }
 
 .legend-color.today {
-  background-color: #fff3e0;
-  border: 1px solid #f57c00;
+  background-color: #e8f5e9;
+  border: 1px solid #2e7d32;
 }
 
 .legend-color.cancelled {
@@ -757,9 +768,129 @@ p {
 .about-page,
 .contact-page,
 .teams-page,
-.team-page {
+.team-page,
+.league-page {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* League page */
+.league-page {
+  padding: 1rem 0;
+}
+
+.breadcrumbs {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.breadcrumbs a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.league-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.league-info, .league-rules {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid, .rules-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-item, .rule-item {
+  margin-bottom: 1rem;
+}
+
+.info-item h3, .rule-item h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.league-schedule, .league-teams, .registration-info {
+  margin-bottom: 2rem;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.team-card {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.team-captains {
+  margin: 1rem 0;
+}
+
+.team-captains h4 {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.team-captains ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.team-captains li {
+  margin-bottom: 0.25rem;
+}
+
+.team-stats {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.view-team {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.view-team:hover {
+  background-color: #0055a5;
+  text-decoration: none;
+}
+
+.registration-details {
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
 }
 
 /* About page */
@@ -865,5 +996,67 @@ p {
   
   .time-blocks {
     flex-direction: column;
+  }
+
+  /* Mobile-friendly schedule table */
+  .schedule-table {
+    font-size: 0.9rem;
+  }
+  
+  .schedule-table th, 
+  .schedule-table td {
+    padding: 0.5rem;
+  }
+  
+  /* Make tables responsive by stacking on small screens */
+  .schedule-table thead {
+    display: none;
+  }
+  
+  .schedule-table tr {
+    display: block;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .schedule-table td {
+    display: flex;
+    padding: 0.5rem 0.75rem;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .schedule-table td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: auto;
+    text-align: left;
+  }
+  
+  .schedule-table td:last-child {
+    border-bottom: none;
+  }
+  
+  /* Mobile-friendly league cards */
+  .leagues-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* More space for game cards on mobile */
+  .day-games {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Stack CTAs on mobile */
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-button {
+    margin-bottom: 0.75rem;
+    width: 100%;
+    text-align: center;
   }
 }

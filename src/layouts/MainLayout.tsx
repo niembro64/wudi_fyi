@@ -18,18 +18,26 @@ const MainLayout: React.FC = () => {
                 <Link to="/">Home</Link>
               </li>
               {currentSeason && (
-                <li>
-                  <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${currentSeason.year}`}>
-                    Schedule
-                  </Link>
+                <li className="dropdown">
+                  <span>Leagues</span>
+                  <div className="dropdown-content">
+                    {currentSeason.leagues.map(league => {
+                      const leagueType = league.type === 'Co-ed' ? 'coed' : 
+                                         league.type === 'Women\'s' ? 'womens' :
+                                         league.type === 'Recreational' ? 'recreational' : '';
+                      
+                      return (
+                        <Link 
+                          key={league.id} 
+                          to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`}
+                        >
+                          {league.name}
+                        </Link>
+                      );
+                    })}
+                  </div>
                 </li>
               )}
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-              <li>
-                <Link to="/contact">Contact</Link>
-              </li>
             </ul>
           </nav>
         </div>
@@ -56,18 +64,21 @@ const MainLayout: React.FC = () => {
             </div>
             
             <div className="footer-section">
-              <h3>Quick Links</h3>
+              <h3>Leagues</h3>
               <ul>
-                <li><Link to="/">Home</Link></li>
-                {currentSeason && (
-                  <li>
-                    <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${currentSeason.year}`}>
-                      Schedule
-                    </Link>
-                  </li>
-                )}
-                <li><Link to="/about">About</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
+                {currentSeason && currentSeason.leagues.map(league => {
+                  const leagueType = league.type === 'Co-ed' ? 'coed' : 
+                                     league.type === 'Women\'s' ? 'womens' :
+                                     league.type === 'Recreational' ? 'recreational' : '';
+                  
+                  return (
+                    <li key={league.id}>
+                      <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`}>
+                        {league.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
