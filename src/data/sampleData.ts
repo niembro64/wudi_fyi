@@ -112,13 +112,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[0]],
     players: [samplePeople[0], samplePeople[1]],
     color: 'White',
-    stats: {
-      wins: 2,
-      losses: 1,
-      points_for: 30,
-      points_against: 25,
-      spirit_score: 4.5
-    },
     logo: null
   },
   {
@@ -127,13 +120,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[2]],
     players: [samplePeople[2], samplePeople[3]],
     color: 'Black',
-    stats: {
-      wins: 1,
-      losses: 2,
-      points_for: 25,
-      points_against: 30,
-      spirit_score: 4.2
-    },
     logo: null
   },
   {
@@ -142,13 +128,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[4]],
     players: [samplePeople[4], samplePeople[1]],
     color: 'Purple',
-    stats: {
-      wins: 0,
-      losses: 3,
-      points_for: 20,
-      points_against: 40,
-      spirit_score: 4.8
-    },
     logo: null
   },
   {
@@ -157,13 +136,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[2]],
     players: [samplePeople[2], samplePeople[3]],
     color: 'Red',
-    stats: {
-      wins: 2,
-      losses: 1,
-      points_for: 35,
-      points_against: 25,
-      spirit_score: 4.6
-    },
     logo: null
   },
   {
@@ -172,13 +144,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[1]],
     players: [samplePeople[1], samplePeople[4]],
     color: 'Blue',
-    stats: {
-      wins: 1,
-      losses: 2,
-      points_for: 28,
-      points_against: 32,
-      spirit_score: 4.7
-    },
     logo: null
   },
   {
@@ -187,13 +152,6 @@ export const sampleTeams: Team[] = [
     captains: [samplePeople[3]],
     players: [samplePeople[3], samplePeople[0]],
     color: 'Green',
-    stats: {
-      wins: 1,
-      losses: 2,
-      points_for: 26,
-      points_against: 30,
-      spirit_score: 4.9
-    },
     logo: null
   }
 ];
@@ -208,8 +166,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:00',
     field: sampleFields[0], // Field 1
-    home_score: 10,
-    away_score: 8,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -222,8 +178,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:00',
     field: sampleFields[1], // Field 2
-    home_score: 12,
-    away_score: 10,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -236,8 +190,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:00',
     field: sampleFields[2], // Field 3
-    home_score: 9,
-    away_score: 11,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -252,8 +204,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:40',
     field: sampleFields[0], // Field 1
-    home_score: 8,
-    away_score: 12,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -266,8 +216,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:40',
     field: sampleFields[1], // Field 2
-    home_score: 9,
-    away_score: 11,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -280,8 +228,6 @@ export const week1Games: Game[] = [
     date: '2025-04-21',
     time: '18:40',
     field: sampleFields[2], // Field 3
-    home_score: 10,
-    away_score: 8,
     status: GameStatus.COMPLETED,
     week: 1,
     round: null,
@@ -299,8 +245,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:00',
     field: sampleFields[0], // Field 1
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -313,8 +257,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:00',
     field: sampleFields[1], // Field 2
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -327,8 +269,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:00',
     field: sampleFields[2], // Field 3
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -343,8 +283,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:40',
     field: sampleFields[0], // Field 1
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -357,8 +295,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:40',
     field: sampleFields[1], // Field 2
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -371,8 +307,6 @@ export const week2Games: Game[] = [
     date: '2025-04-28',
     time: '18:40',
     field: sampleFields[2], // Field 3
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 2,
     round: null,
@@ -390,8 +324,6 @@ export const week3Games: Game[] = [
     date: '2025-05-05',
     time: '18:00',
     field: sampleFields[0], // Field 1
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 3,
     round: "Quarterfinals",
@@ -404,8 +336,6 @@ export const week3Games: Game[] = [
     date: '2025-05-05',
     time: '18:00',
     field: sampleFields[1], // Field 2
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 3,
     round: "Quarterfinals",
@@ -418,8 +348,6 @@ export const week3Games: Game[] = [
     date: '2025-05-05',
     time: '18:00',
     field: sampleFields[2], // Field 3
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 3,
     round: "Quarterfinals",
@@ -434,8 +362,6 @@ export const week3Games: Game[] = [
     date: '2025-05-05',
     time: '18:40',
     field: sampleFields[0], // Field 1
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 3,
     round: "Semifinals",
@@ -448,8 +374,6 @@ export const week3Games: Game[] = [
     date: '2025-05-05',
     time: '18:40',
     field: sampleFields[1], // Field 2
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 3,
     round: "Semifinals",
@@ -467,8 +391,6 @@ export const week4Games: Game[] = [
     date: '2025-05-12',
     time: '18:00',
     field: sampleFields[0], // Field 1
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 4,
     round: "Finals",
@@ -482,8 +404,6 @@ export const week4Games: Game[] = [
     date: '2025-05-12',
     time: '18:00',
     field: sampleFields[1], // Field 2
-    home_score: null,
-    away_score: null,
     status: GameStatus.SCHEDULED,
     week: 4,
     round: "3rd Place Game",

@@ -19,9 +19,7 @@ export enum LeagueType {
 export enum GameStatus {
   SCHEDULED = "Scheduled",
   IN_PROGRESS = "In Progress",
-  COMPLETED = "Completed",
-  CANCELLED = "Cancelled",
-  POSTPONED = "Postponed"
+  COMPLETED = "Completed"
 }
 
 // Base entity interface
@@ -52,17 +50,7 @@ export interface Team extends Entity {
   captains: Person[];
   players: Person[];
   color: string | null;
-  stats: TeamStats | null;
   logo: string | null;
-}
-
-// Team statistics
-export interface TeamStats {
-  wins: number;
-  losses: number;
-  points_for: number;
-  points_against: number;
-  spirit_score: number | null;
 }
 
 // Field location
@@ -98,8 +86,6 @@ export interface Game extends Entity {
   date: string; // ISO date string
   time: string; // time string in 24hr format
   field: Field;
-  home_score: number | null;
-  away_score: number | null;
   status: GameStatus;
   week: number | null;
   round: string | null; // "Quarterfinals", "Semifinals", "Finals", etc.

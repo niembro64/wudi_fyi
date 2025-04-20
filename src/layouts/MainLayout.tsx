@@ -29,7 +29,7 @@ const MainLayout: React.FC = () => {
                       return (
                         <Link 
                           key={league.id} 
-                          to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`}
+                          to={`/leagues/${leagueType}`}
                         >
                           {league.name}
                         </Link>
@@ -73,7 +73,7 @@ const MainLayout: React.FC = () => {
                   
                   return (
                     <li key={league.id}>
-                      <Link to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`}>
+                      <Link to={`/leagues/${leagueType}`}>
                         {league.name}
                       </Link>
                     </li>

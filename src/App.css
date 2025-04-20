@@ -717,6 +717,95 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* New schedule layout */
+.schedule-days {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.schedule-day {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Past days */
+.schedule-day.past {
+  opacity: 0.7;
+  background-color: #f5f5f5;
+}
+
+/* Today */
+.schedule-day.today {
+  border-left: 4px solid #1565c0;
+  background-color: #e3f2fd;
+}
+
+/* Future days */
+.schedule-day.future {
+  border-left: 4px solid #4caf50;
+}
+
+.schedule-day h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+  color: #0066cc;
+}
+
+.time-slot {
+  margin-bottom: 1.5rem;
+}
+
+.time-slot h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  color: #555;
+}
+
+.games-table-container {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.games-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.games-table th {
+  background-color: #f2f2f2;
+  color: #555;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.games-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.games-table tr:last-child td {
+  border-bottom: none;
+}
+
+.games-table tr.game-row:hover {
+  background-color: #f9f9f9;
+}
+
 .legend-items {
   display: flex;
   flex-wrap: wrap;
@@ -736,24 +825,20 @@ p {
   margin-right: 0.5rem;
 }
 
-.legend-color.upcoming {
+.legend-color.past {
   background-color: #f5f5f5;
   border: 1px solid #757575;
+  opacity: 0.7;
 }
 
-.legend-color.completed {
+.legend-color.today {
   background-color: #e3f2fd;
   border: 1px solid #1565c0;
 }
 
-.legend-color.today {
-  background-color: #e8f5e9;
-  border: 1px solid #2e7d32;
-}
-
-.legend-color.cancelled {
-  background-color: #ffebee;
-  border: 1px solid #d32f2f;
+.legend-color.future {
+  background-color: white;
+  border: 1px solid #4caf50;
 }
 
 .no-games {
@@ -826,12 +911,30 @@ p {
   color: #555;
 }
 
-.league-schedule, .league-teams, .registration-info {
+.league-schedule, 
+.league-teams, 
+.registration-info,
+.gender-ratios,
+.fields-map {
   margin-bottom: 2rem;
   background-color: white;
   padding: 1.5rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.info-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .teams-grid {
@@ -1044,8 +1147,16 @@ p {
   }
   
   /* More space for game cards on mobile */
-  .day-games {
+  .day-games,
+  .games-grid {
     grid-template-columns: 1fr;
+  }
+  
+  /* Full width components on mobile */
+  .league-info,
+  .schedule-day {
+    width: 100%;
+    padding: 1rem;
   }
   
   /* Stack CTAs on mobile */

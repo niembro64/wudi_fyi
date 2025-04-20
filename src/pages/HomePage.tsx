@@ -23,7 +23,7 @@ const HomePage: React.FC = () => {
                 return (
                   <Link 
                     key={league.id}
-                    to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`} 
+                    to={`/leagues/${leagueType}`} 
                     className="cta-button"
                   >
                     View {league.name}
@@ -80,13 +80,6 @@ const HomePage: React.FC = () => {
           <h2>{currentSeason.season} {currentSeason.year} Season</h2>
           <p>{currentSeason.description}</p>
           
-          {currentSeason.theme && (
-            <div className="season-theme">
-              <h3>Season Theme</h3>
-              <p>{currentSeason.theme}</p>
-            </div>
-          )}
-          
           <div className="leagues-grid">
             {currentSeason.leagues.map(league => {
               const leagueType = league.type === 'Co-ed' ? 'coed' : 
@@ -100,14 +93,12 @@ const HomePage: React.FC = () => {
                   
                   {league.schedule && (
                     <div className="schedule-info">
-                      <p><strong>Start Date:</strong> {new Date(league.schedule.start_date).toLocaleDateString()}</p>
-                      <p><strong>End Date:</strong> {new Date(league.schedule.end_date).toLocaleDateString()}</p>
                       <p><strong>Game Days:</strong> {getDayOfWeek(league.schedule.start_date)}s</p>
                     </div>
                   )}
                   
                   <Link 
-                    to={`/seasons/${currentSeason.season.toLowerCase()}/${leagueType}/${currentSeason.year}`} 
+                    to={`/leagues/${leagueType}`} 
                     className="view-schedule"
                   >
                     View Schedule
@@ -119,35 +110,49 @@ const HomePage: React.FC = () => {
         </section>
       )}
       
-      <section className="slack-community">
-        <h2>Join Our Slack Community</h2>
-        <p>
-          All players are welcome and encouraged to join the WUDI League Slack channel 
-          to help all of us in the community engage with each other!
-        </p>
-        
-        <div className="slack-channels">
-          <h3>Available Channels</h3>
-          <ul>
-            <li><strong>#ask-the-board</strong> - Ask your hard-hitting questions here</li>
-            <li><strong>#general</strong> - General discussion</li>
-            <li><strong>#weather-announcements</strong> - Stay up to date with weather cancellations</li>
-            <li><strong>#where-to-play</strong> - Find playing opportunities, tryouts, tournaments</li>
-            <li><strong>#wudi-ride-board</strong> - Coordinate rides to games</li>
-            <li><strong>#wudi-social-club</strong> - Social events and announcements</li>
-            <li><strong>#wudi-workouts</strong> - Find workout buddies and share fitness tips</li>
-          </ul>
+      <section className="field-info">
+        <h2>Field Information</h2>
+        <div className="field-details">
+          <p>
+            <strong>Location:</strong> SUNY Purchase, 735 Anderson Hill Rd, Purchase, NY 10577
+          </p>
+          <p>
+            <strong>Parking:</strong> Available at the Performing Arts Center (PAC) and the Great Lawn
+          </p>
+          <p>
+            <strong>Emergency Number:</strong> 914.251.6900
+          </p>
         </div>
         
-        {wudiInfo.slack_invite_link ? (
-          <a href={wudiInfo.slack_invite_link} className="slack-invite-button" target="_blank" rel="noopener noreferrer">
-            Join WUDI Slack
-          </a>
-        ) : (
-          <p>
-            Ask your captain for the Slack invite link or email {wudiInfo.contact_email || 'theboard@wudi.org'}
-          </p>
-        )}
+        <div className="field-map-links">
+          <h3>Google Maps Links</h3>
+          <div className="map-links-grid">
+            <a 
+              href="https://maps.google.com/?q=SUNY+Purchase+PAC" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="map-link"
+            >
+              PAC Parking
+            </a>
+            <a 
+              href="https://maps.google.com/?q=SUNY+Purchase+Great+Lawn" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="map-link"
+            >
+              Great Lawn Parking
+            </a>
+            <a 
+              href="https://maps.google.com/?q=SUNY+Purchase+Field+1" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="map-link"
+            >
+              Field 1, 2, 3, 4 Parking
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   );

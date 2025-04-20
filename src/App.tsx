@@ -7,8 +7,7 @@ import MainLayout from './layouts/MainLayout';
 
 // Pages
 import HomePage from './pages/HomePage';
-import SeasonPage from './pages/seasons/SeasonPage';
-import LeaguePage from './pages/seasons/LeaguePage';
+import LeaguePage from './pages/LeaguePage';
 
 // Not Found Page
 const NotFound = () => {
@@ -28,17 +27,8 @@ function App() {
           {/* Home page */}
           <Route index element={<HomePage />} />
           
-          {/* Hierarchical season and league routes */}
-          <Route path="seasons">
-            {/* Season listing (e.g., /seasons/spring) */}
-            <Route path=":season" element={<SeasonPage />} />
-            
-            {/* League listing (e.g., /seasons/spring/womens) */}
-            <Route path=":season/:leagueType" element={<LeaguePage />} />
-            
-            {/* Specific year (e.g., /seasons/spring/womens/2025) */}
-            <Route path=":season/:leagueType/:year" element={<LeaguePage />} />
-          </Route>
+          {/* League page (schedules) */}
+          <Route path="/leagues/:leagueType" element={<LeaguePage />} />
           
           {/* Not found route */}
           <Route path="*" element={<NotFound />} />
