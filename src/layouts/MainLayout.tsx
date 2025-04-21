@@ -8,31 +8,6 @@ const MainLayout: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header>
-        <div className="bg-primary-dark text-xs text-white">
-          <div className="container mx-auto px-4 py-1 flex justify-end items-center flex-wrap gap-x-4">
-            {Object.values(wudiMapCoordinates).map((location) => (
-              <a 
-                key={location.coordinates}
-                href={location.mapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${
-                  location.type === 'field' 
-                    ? 'text-green-300 hover:text-green-200' 
-                    : 'text-blue-300 hover:text-blue-200'
-                } transition-all duration-300 py-1`}
-              >
-                {location.name}
-              </a>
-            ))}
-            <a 
-              href="tel:9142516900"
-              className="text-white hover:text-primary-light transition-all duration-300 py-1 font-semibold"
-            >
-              🚨 Emergency: 914.251.6900
-            </a>
-          </div>
-        </div>
         <div className="bg-primary shadow-md">
           <div className="container mx-auto px-4 py-4 flex justify-between items-center">
             <Link
