@@ -51,135 +51,8 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-blue-500 opacity-20 mix-blend-multiply"></div>
       </section>
 
-      <section className="mb-12 bg-red-50 rounded-xl shadow-custom overflow-hidden">
-        <div className="bg-gradient-to-r from-red-500 to-red-700 py-3 px-6">
-          <h2 className="text-white text-xl font-bold">
-            Emergency Information
-          </h2>
-        </div>
-        <div className="p-6">
-          <div className="flex flex-col md:flex-row gap-6 items-center">
-            <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center w-full md:w-auto">
-              <a
-                href={`tel:${wudiInfo.emergency_number || '9142516900'}`}
-                className="text-xl font-bold text-red-600 flex items-center"
-              >
-                <svg
-                  className="w-6 h-6 mr-2"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                </svg>
-                {wudiInfo.emergency_number || '914.251.6900'}
-              </a>
-            </div>
-            <div className="flex-1">
-              <p className="mb-2">
-                This number should be used for emergencies at our playing
-                fields. It will connect you to security services at SUNY
-                Purchase for a faster response than 911.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {announcements.length > 0 && (
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-gray-dark border-b-2 border-primary pb-2">
-            Important Announcements
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {announcements.map((announcement) => (
-              <div
-                key={announcement.id}
-                className="card hover:translate-y-[-4px]"
-              >
-                <h3 className="text-xl font-bold text-primary-dark mb-2">
-                  {announcement.title}
-                </h3>
-                <p className="text-sm text-gray mb-3">
-                  {new Date(announcement.date).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </p>
-                <div className="prose prose-sm mb-4">
-                  {announcement.content}
-                </div>
-                {announcement.author && (
-                  <p className="text-sm text-gray italic">
-                    Posted by: {announcement.author.name}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
 
-      {currentSeason && (
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-6 text-gray-dark border-b-2 border-primary pb-2">
-            {currentSeason.season} {currentSeason.year} Season
-          </h2>
-          <p className="mb-8 text-lg">{currentSeason.description}</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {currentSeason.leagues.map((league) => {
-              const leagueType =
-                league.type === 'Co-ed'
-                  ? 'coed'
-                  : league.type === "Women's"
-                  ? 'womens'
-                  : league.type === 'Recreational'
-                  ? 'recreational'
-                  : '';
-
-              return (
-                <div key={league.id} className="card hover:translate-y-[-4px]">
-                  <h3 className="text-xl font-bold text-primary-dark mb-3">
-                    {league.name}
-                  </h3>
-                  <p className="mb-4 text-gray-700">{league.description}</p>
-
-                  {league.schedule && (
-                    <div className="mb-4 bg-gray-50 p-3 rounded-md">
-                      <p className="font-medium">
-                        <span className="text-gray">Game Days:</span>{' '}
-                        <span className="text-primary-dark">
-                          {getDayOfWeek(league.schedule.start_date)}s
-                        </span>
-                      </p>
-                    </div>
-                  )}
-
-                  <Link
-                    to={`/leagues/${leagueType}`}
-                    className="btn inline-flex items-center"
-                  >
-                    <span>View Schedule</span>
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
 
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6 text-gray-dark border-b-2 border-primary pb-2">
@@ -265,28 +138,6 @@ const HomePage: React.FC = () => {
                   </a>
                 </span>
               </li>
-              <li className="flex items-start">
-                <svg
-                  className="w-5 h-5 text-primary mt-0.5 mr-3"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                <a 
-                  href="tel:9142516900"
-                  className="hover:text-primary-dark hover:underline transition-colors"
-                >
-                  Emergency Number: 914.251.6900
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -345,6 +196,49 @@ const HomePage: React.FC = () => {
                   <span>Parking</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mt-8 card overflow-hidden p-0">
+          <img
+            src="/fields_map.png"
+            alt="Fields Map"
+            className="w-full max-w-full h-auto"
+          />
+        </div>
+      </section>
+      
+      <section className="mb-12 bg-red-50 rounded-xl shadow-custom overflow-hidden">
+        <div className="bg-gradient-to-r from-red-500 to-red-700 py-3 px-6">
+          <h2 className="text-white text-xl font-bold">
+            Emergency Information
+          </h2>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center w-full md:w-auto">
+              <a
+                href={`tel:${wudiInfo.emergency_number || '9142516900'}`}
+                className="text-xl font-bold text-red-600 flex items-center"
+              >
+                <svg
+                  className="w-6 h-6 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                {wudiInfo.emergency_number || '914.251.6900'}
+              </a>
+            </div>
+            <div className="flex-1">
+              <p className="mb-2">
+                This number should be used for emergencies at our playing
+                fields. It will connect you to security services at SUNY
+                Purchase for a faster response than 911.
+              </p>
             </div>
           </div>
         </div>

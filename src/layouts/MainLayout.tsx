@@ -9,56 +9,92 @@ const MainLayout: React.FC = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <header>
         <div className="bg-primary shadow-md">
-          <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-            <Link
-              to="/"
-              className="text-white text-2xl font-bold hover:text-white transition-all duration-300 transform hover:scale-105"
-            >
-              WUDI FYI
-            </Link>
-            <nav>
-              <ul className="flex items-center space-x-6">
-                <li>
-                  <Link
-                    to="/"
-                    className="text-white hover:text-primary-light font-medium transition-all duration-300"
-                  >
-                    Home
-                  </Link>
-                </li>
-                {currentSeason && (
-                  <li className="relative group">
-                    <span className="text-white font-medium cursor-pointer hover:text-primary-light transition-all duration-300">
-                      Leagues
-                    </span>
-                    <div className="absolute right-0 z-10 w-48 mt-2 hidden group-hover:block">
-                      <div className="bg-white rounded-md shadow-custom overflow-hidden">
-                        {currentSeason.leagues.map((league) => {
-                          const leagueType =
-                            league.type === 'Co-ed'
-                              ? 'coed'
-                              : league.type === "Women's"
-                              ? 'womens'
-                              : league.type === 'Recreational'
-                              ? 'recreational'
-                              : '';
-
-                          return (
-                            <Link
-                              key={league.id}
-                              to={`/leagues/${leagueType}`}
-                              className="block px-4 py-2 text-gray-dark hover:bg-primary-light hover:text-primary-dark transition-colors duration-300"
-                            >
-                              {league.name}
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    </div>
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex justify-between items-center mb-2">
+              <Link
+                to="/"
+                className="text-white text-2xl font-bold hover:text-white transition-all duration-300 transform hover:scale-105"
+              >
+                WUDI FYI
+              </Link>
+              <nav>
+                <ul className="flex items-center space-x-6">
+                  <li>
+                    <Link
+                      to="/"
+                      className="text-white hover:text-primary-light font-medium transition-all duration-300"
+                    >
+                      Home
+                    </Link>
                   </li>
-                )}
-              </ul>
-            </nav>
+                  {currentSeason && (
+                    <li className="relative group">
+                      <span className="text-white font-medium cursor-pointer hover:text-primary-light transition-all duration-300">
+                        Leagues
+                      </span>
+                      <div className="absolute right-0 z-10 w-48 mt-2 hidden group-hover:block">
+                        <div className="bg-white rounded-md shadow-custom overflow-hidden">
+                          {currentSeason.leagues.map((league) => {
+                            const leagueType =
+                              league.type === 'Co-ed'
+                                ? 'coed'
+                                : league.type === "Women's"
+                                ? 'womens'
+                                : league.type === 'Recreational'
+                                ? 'recreational'
+                                : '';
+
+                            return (
+                              <Link
+                                key={league.id}
+                                to={`/leagues/${leagueType}`}
+                                className="block px-4 py-2 text-gray-dark hover:bg-primary-light hover:text-primary-dark transition-colors duration-300"
+                              >
+                                {league.name}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </li>
+                  )}
+                </ul>
+              </nav>
+            </div>
+            
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs justify-end">
+              {/* Field locations */}
+              {Object.values(wudiMapCoordinates)
+                .filter(location => location.type === 'field')
+                .map(location => (
+                  <a 
+                    key={location.coordinates}
+                    href={location.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-green-300 hover:text-green-200 transition-all duration-300"
+                  >
+                    {location.name}
+                  </a>
+                ))
+              }
+              
+              {/* Parking locations */}
+              {Object.values(wudiMapCoordinates)
+                .filter(location => location.type === 'parking')
+                .map(location => (
+                  <a 
+                    key={location.coordinates}
+                    href={location.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-300 hover:text-blue-200 transition-all duration-300"
+                  >
+                    {location.name}
+                  </a>
+                ))
+              }
+            </div>
           </div>
         </div>
       </header>

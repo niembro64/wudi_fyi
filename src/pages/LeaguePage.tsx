@@ -616,6 +616,41 @@ const LeaguePage: React.FC = () => {
           </div>
         </div>
       </section>
+      
+      <section className="mb-12 bg-red-50 rounded-xl shadow-custom overflow-hidden">
+        <div className="bg-gradient-to-r from-red-500 to-red-700 py-3 px-6">
+          <h2 className="text-white text-xl font-bold">
+            Emergency Information
+          </h2>
+        </div>
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="bg-white p-4 rounded-lg shadow-md flex items-center justify-center w-full md:w-auto">
+              <a
+                href={`tel:${wudiInfo.emergency_number || '9142516900'}`}
+                className="text-xl font-bold text-red-600 flex items-center"
+              >
+                <svg
+                  className="w-6 h-6 mr-2"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                {wudiInfo.emergency_number || '914.251.6900'}
+              </a>
+            </div>
+            <div className="flex-1">
+              <p className="mb-2">
+                This number should be used for emergencies at our playing
+                fields. It will connect you to security services at SUNY
+                Purchase for a faster response than 911.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
