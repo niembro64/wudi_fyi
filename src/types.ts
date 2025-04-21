@@ -22,6 +22,20 @@ export enum GameStatus {
   COMPLETED = "Completed"
 }
 
+// Location type enum
+export enum LocationType {
+  FIELD = "field",
+  PARKING = "parking"
+}
+
+// Map coordinates interface
+export interface MapCoordinate {
+  name: string;
+  coordinates: string;
+  mapsLink: string;
+  type: LocationType;
+}
+
 // Base entity interface
 export interface Entity {
   id: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { wudiInfo } from '../data/sampleData';
+import { wudiInfo, wudiMapCoordinates } from '../data/sampleData';
 
 const HomePage: React.FC = () => {
   const currentSeason = wudiInfo.current_season;
@@ -206,9 +206,14 @@ const HomePage: React.FC = () => {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span>
+                <a 
+                  href={wudiMapCoordinates.field1.mapsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-dark hover:underline transition-colors"
+                >
                   SUNY Purchase, 735 Anderson Hill Rd, Purchase, NY 10577
-                </span>
+                </a>
               </li>
               <li className="flex items-start">
                 <svg
@@ -226,8 +231,32 @@ const HomePage: React.FC = () => {
                   />
                 </svg>
                 <span>
-                  Parking available at the Performing Arts Center (PAC) and the
-                  Great Lawn
+                  Parking available at{" "}
+                  <a 
+                    href={wudiMapCoordinates.parkingFields.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark hover:underline transition-colors"
+                  >
+                    Fields Parking
+                  </a>,{" "}
+                  <a 
+                    href={wudiMapCoordinates.parkingPAC.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark hover:underline transition-colors"
+                  >
+                    Performing Arts Center (PAC)
+                  </a>{" "}
+                  and{" "}
+                  <a 
+                    href={wudiMapCoordinates.parkingGreatLawn.mapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary-dark hover:underline transition-colors"
+                  >
+                    Great Lawn
+                  </a>
                 </span>
               </li>
               <li className="flex items-start">
@@ -245,7 +274,12 @@ const HomePage: React.FC = () => {
                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                   />
                 </svg>
-                <span>Emergency Number: 914.251.6900</span>
+                <a 
+                  href="tel:9142516900"
+                  className="hover:text-primary-dark hover:underline transition-colors"
+                >
+                  Emergency Number: 914.251.6900
+                </a>
               </li>
             </ul>
           </div>
@@ -254,31 +288,57 @@ const HomePage: React.FC = () => {
             <h3 className="text-xl font-bold text-primary-dark mb-4">
               Google Maps
             </h3>
-            <a
-              href="https://maps.google.com/?q=41.04561378382737,-73.6978115030064"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-primary text-white py-3 px-4 rounded-lg flex items-center justify-center w-full transform transition-all duration-300 hover:bg-primary-dark hover:shadow-lg font-medium"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                />
-              </svg>
-              Open SUNY Purchase Fields
-            </a>
-            <div className="mt-4 bg-gray-100 rounded-lg p-2 text-sm text-gray-600 text-center">
-              Tap the button above to open the exact field location in Google
-              Maps
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-2">
+                {/* Field locations */}
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.values(wudiMapCoordinates)
+                    .filter(location => location.type === 'field')
+                    .map(location => (
+                      <a
+                        key={location.coordinates}
+                        href={location.mapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-500 text-white py-2 px-3 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:bg-green-600 hover:shadow-md font-medium text-sm"
+                      >
+                        {location.name}
+                      </a>
+                    ))
+                  }
+                </div>
+                
+                {/* Parking locations */}
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.values(wudiMapCoordinates)
+                    .filter(location => location.type === 'parking')
+                    .map(location => (
+                      <a
+                        key={location.coordinates}
+                        href={location.mapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-blue-500 text-white py-2 px-3 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:bg-blue-600 hover:shadow-md font-medium text-sm"
+                      >
+                        {location.name}
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 bg-gray-100 rounded-lg p-4 text-sm text-gray-600">
+              <p className="text-center mb-2">Tap any button above to open the exact location in Google Maps</p>
+              <div className="flex justify-center items-center gap-4 mt-2">
+                <div className="flex items-center">
+                  <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                  <span>Fields</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
+                  <span>Parking</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

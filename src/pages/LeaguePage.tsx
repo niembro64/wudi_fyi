@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { wudiInfo } from '../data/sampleData';
+import { wudiInfo, wudiMapCoordinates } from '../data/sampleData';
 import { Game, LeagueType, Team } from '../types';
 
 const LeaguePage: React.FC = () => {
@@ -339,7 +339,14 @@ const LeaguePage: React.FC = () => {
                                           )}
                                         </td>
                                         <td className="py-3 px-4 text-sm font-medium text-gray-900">
-                                          {getShortFieldName(game.field.name)}
+                                          <a
+                                            href={getFieldMapLink(game.field.number)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary hover:text-primary-dark hover:underline transition-colors"
+                                          >
+                                            {getShortFieldName(game.field.name)}
+                                          </a>
                                         </td>
                                         {game.round && (
                                           <td className="py-3 px-4 text-sm font-medium text-gray-900">
@@ -431,7 +438,14 @@ const LeaguePage: React.FC = () => {
                   Location
                 </h3>
               </div>
-              <p className="ml-9">{leagueData.location.name}</p>
+              {/* <a 
+                href={wudiMapCoordinates.allFields.mapsLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-9 text-primary hover:text-primary-dark hover:underline transition-colors"
+              >
+                {leagueData.location.name}
+              </a> */}
             </div>
           )}
 
@@ -541,34 +555,58 @@ const LeaguePage: React.FC = () => {
             className="w-full max-w-full h-auto"
           />
           <div className="p-6 bg-gray-50">
-            <a
-              href="https://maps.google.com/?q=41.04561378382737,-73.6978115030064"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white font-medium rounded-lg shadow-md hover:bg-primary-dark transition-all duration-300 hover:shadow-lg"
-            >
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-              Open SUNY Purchase Fields in Google Maps
-            </a>
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 gap-2">
+                {/* Field locations */}
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.values(wudiMapCoordinates)
+                    .filter(location => location.type === 'field')
+                    .map(location => (
+                      <a
+                        key={location.coordinates}
+                        href={location.mapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-500 text-white py-2 px-3 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:bg-green-600 hover:shadow-md font-medium text-sm"
+                      >
+                        {location.name}
+                      </a>
+                    ))
+                  }
+                </div>
+                
+                {/* Parking locations */}
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.values(wudiMapCoordinates)
+                    .filter(location => location.type === 'parking')
+                    .map(location => (
+                      <a
+                        key={location.coordinates}
+                        href={location.mapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-blue-500 text-white py-2 px-3 rounded-lg flex items-center justify-center transform transition-all duration-300 hover:bg-blue-600 hover:shadow-md font-medium text-sm"
+                      >
+                        {location.name}
+                      </a>
+                    ))
+                  }
+                </div>
+                
+                <div className="mt-2 bg-gray-100 rounded-lg p-2 text-sm text-gray-600">
+                  <div className="flex justify-center items-center gap-4">
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
+                      <span>Fields</span>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="w-4 h-4 bg-blue-500 rounded-full mr-2"></div>
+                      <span>Parking</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -614,6 +652,21 @@ const getShortFieldName = (fullName: string): string => {
     return 'F' + fullName.substring(11); // "WUDI Field 1" -> "F1"
   }
   return fullName;
+};
+
+const getFieldMapLink = (fieldNumber: number): string => {
+  switch(fieldNumber) {
+    case 1:
+      return wudiMapCoordinates.field1.mapsLink;
+    case 2:
+      return wudiMapCoordinates.field2.mapsLink;
+    case 3:
+      return wudiMapCoordinates.field3.mapsLink;
+    case 4:
+      return wudiMapCoordinates.field4.mapsLink;
+    default:
+      return wudiMapCoordinates.field1.mapsLink;
+  }
 };
 
 export default LeaguePage;
