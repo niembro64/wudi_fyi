@@ -61,40 +61,6 @@ const MainLayout: React.FC = () => {
                 </ul>
               </nav>
             </div>
-            
-            <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs justify-end">
-              {/* Field locations */}
-              {Object.values(wudiMapCoordinates)
-                .filter(location => location.type === 'field')
-                .map(location => (
-                  <a 
-                    key={location.coordinates}
-                    href={location.mapsLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-green-300 hover:text-green-200 transition-all duration-300"
-                  >
-                    {location.name}
-                  </a>
-                ))
-              }
-              
-              {/* Parking locations */}
-              {Object.values(wudiMapCoordinates)
-                .filter(location => location.type === 'parking')
-                .map(location => (
-                  <a 
-                    key={location.coordinates}
-                    href={location.mapsLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-300 hover:text-blue-200 transition-all duration-300"
-                  >
-                    {location.name}
-                  </a>
-                ))
-              }
-            </div>
           </div>
         </div>
       </header>
@@ -126,15 +92,6 @@ const MainLayout: React.FC = () => {
                   className="text-primary-light hover:text-white transition-all duration-300"
                 >
                   {wudiInfo.contact_email || 'theboard@wudi.org'}
-                </a>
-              </p>
-              <p>
-                Emergency:{' '}
-                <a
-                  href={`tel:${wudiInfo.emergency_number || '9142516900'}`}
-                  className="text-primary-light hover:text-white transition-all duration-300"
-                >
-                  {wudiInfo.emergency_number || '914.251.6900'}
                 </a>
               </p>
             </div>
@@ -170,8 +127,7 @@ const MainLayout: React.FC = () => {
 
           <div className="mt-8 pt-6 border-t border-gray-600 text-center">
             <p className="text-sm text-primary-light">
-              &copy; {new Date().getFullYear()} Westchester Ultimate Disc, Inc.
-              All rights reserved.
+              &copy; {new Date().getFullYear()} WUDI FYI, All rights reserved.
             </p>
           </div>
         </div>

@@ -128,9 +128,19 @@ const LeaguePage: React.FC = () => {
   return (
     <div>
       <div className="bg-gray-100 text-gray-600 text-sm py-3 px-4 mb-6 rounded-lg">
-        <p className="text-center">
-          This is not the official WUDI website. This is a supplemental information site that may be useful to players. 
-          For official information, please visit <a href="https://wudi.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">wudi.org</a>.
+        <p className="text-center ">
+          This is not the official WUDI website. This is a supplemental
+          information site that may be useful to you. For official information,
+          please visit{' '}
+          <a
+            href="https://wudi.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline k"
+          >
+            wudi.org
+          </a>
+          .
         </p>
       </div>
       <div className="mb-10">
@@ -185,7 +195,7 @@ const LeaguePage: React.FC = () => {
                     onClick={() => toggleTeamSelection(team.id)}
                     className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isSelected
-                        ? 'bg-primary text-white shadow-md'
+                        ? 'bg-primary text-white border border-white '
                         : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
                     }`}
                   >
@@ -346,7 +356,9 @@ const LeaguePage: React.FC = () => {
                                         </td>
                                         <td className="py-3 px-4 text-sm font-medium text-gray-900">
                                           <a
-                                            href={getFieldMapLink(game.field.number)}
+                                            href={getFieldMapLink(
+                                              game.field.number
+                                            )}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-primary hover:text-primary-dark hover:underline transition-colors"
@@ -566,8 +578,8 @@ const LeaguePage: React.FC = () => {
                 {/* Field locations */}
                 <div className="grid grid-cols-2 gap-2">
                   {Object.values(wudiMapCoordinates)
-                    .filter(location => location.type === 'field')
-                    .map(location => (
+                    .filter((location) => location.type === 'field')
+                    .map((location) => (
                       <a
                         key={location.coordinates}
                         href={location.mapsLink}
@@ -577,15 +589,14 @@ const LeaguePage: React.FC = () => {
                       >
                         {location.name}
                       </a>
-                    ))
-                  }
+                    ))}
                 </div>
-                
+
                 {/* Parking locations */}
                 <div className="grid grid-cols-3 gap-2">
                   {Object.values(wudiMapCoordinates)
-                    .filter(location => location.type === 'parking')
-                    .map(location => (
+                    .filter((location) => location.type === 'parking')
+                    .map((location) => (
                       <a
                         key={location.coordinates}
                         href={location.mapsLink}
@@ -595,10 +606,9 @@ const LeaguePage: React.FC = () => {
                       >
                         {location.name}
                       </a>
-                    ))
-                  }
+                    ))}
                 </div>
-                
+
                 <div className="mt-2 bg-gray-100 rounded-lg p-2 text-sm text-gray-600">
                   <div className="flex justify-center items-center gap-4">
                     <div className="flex items-center">
@@ -616,7 +626,7 @@ const LeaguePage: React.FC = () => {
           </div>
         </div>
       </section>
-      
+
       <section className="mb-12 bg-red-50 rounded-xl shadow-custom overflow-hidden">
         <div className="bg-gradient-to-r from-red-500 to-red-700 py-3 px-6">
           <h2 className="text-white text-xl font-bold">
@@ -696,7 +706,7 @@ const getShortFieldName = (fullName: string): string => {
 };
 
 const getFieldMapLink = (fieldNumber: number): string => {
-  switch(fieldNumber) {
+  switch (fieldNumber) {
     case 1:
       return wudiMapCoordinates.field1.mapsLink;
     case 2:

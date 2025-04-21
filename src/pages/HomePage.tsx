@@ -10,8 +10,18 @@ const HomePage: React.FC = () => {
     <div>
       <div className="bg-gray-100 text-gray-600 text-sm py-3 px-4 mb-6 rounded-lg">
         <p className="text-center">
-          This is not the official WUDI website. This is a supplemental information site that may be useful to players. 
-          For official information, please visit <a href="https://wudi.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">wudi.org</a>.
+          This is not the official WUDI website. This is a supplemental
+          information site that may be useful to you. For official information,
+          please visit{' '}
+          <a
+            href="https://wudi.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            wudi.org
+          </a>
+          .
         </p>
       </div>
       <section className="relative bg-gradient-to-r from-primary to-primary-dark text-white rounded-2xl overflow-hidden shadow-custom mb-12">
@@ -51,9 +61,6 @@ const HomePage: React.FC = () => {
         <div className="absolute inset-0 bg-blue-500 opacity-20 mix-blend-multiply"></div>
       </section>
 
-
-
-
       <section className="mb-12">
         <h2 className="text-3xl font-bold mb-6 text-gray-dark border-b-2 border-primary pb-2">
           Field Information
@@ -85,7 +92,7 @@ const HomePage: React.FC = () => {
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <a 
+                <a
                   href={wudiMapCoordinates.field1.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -110,25 +117,26 @@ const HomePage: React.FC = () => {
                   />
                 </svg>
                 <span>
-                  Parking available at{" "}
-                  <a 
+                  Parking available at{' '}
+                  <a
                     href={wudiMapCoordinates.parkingFields.mapsLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:text-primary-dark hover:underline transition-colors"
                   >
                     Fields Parking
-                  </a>,{" "}
-                  <a 
+                  </a>
+                  ,{' '}
+                  <a
                     href={wudiMapCoordinates.parkingPAC.mapsLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:text-primary-dark hover:underline transition-colors"
                   >
                     Performing Arts Center (PAC)
-                  </a>{" "}
-                  and{" "}
-                  <a 
+                  </a>{' '}
+                  and{' '}
+                  <a
                     href={wudiMapCoordinates.parkingGreatLawn.mapsLink}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -150,8 +158,8 @@ const HomePage: React.FC = () => {
                 {/* Field locations */}
                 <div className="grid grid-cols-2 gap-2">
                   {Object.values(wudiMapCoordinates)
-                    .filter(location => location.type === 'field')
-                    .map(location => (
+                    .filter((location) => location.type === 'field')
+                    .map((location) => (
                       <a
                         key={location.coordinates}
                         href={location.mapsLink}
@@ -161,15 +169,14 @@ const HomePage: React.FC = () => {
                       >
                         {location.name}
                       </a>
-                    ))
-                  }
+                    ))}
                 </div>
-                
+
                 {/* Parking locations */}
                 <div className="grid grid-cols-3 gap-2">
                   {Object.values(wudiMapCoordinates)
-                    .filter(location => location.type === 'parking')
-                    .map(location => (
+                    .filter((location) => location.type === 'parking')
+                    .map((location) => (
                       <a
                         key={location.coordinates}
                         href={location.mapsLink}
@@ -179,13 +186,14 @@ const HomePage: React.FC = () => {
                       >
                         {location.name}
                       </a>
-                    ))
-                  }
+                    ))}
                 </div>
               </div>
             </div>
             <div className="mt-4 bg-gray-100 rounded-lg p-4 text-sm text-gray-600">
-              <p className="text-center mb-2">Tap any button above to open the exact location in Google Maps</p>
+              <p className="text-center mb-2">
+                Tap any button above to open the exact location in Google Maps
+              </p>
               <div className="flex justify-center items-center gap-4 mt-2">
                 <div className="flex items-center">
                   <div className="w-4 h-4 bg-green-500 rounded-full mr-2"></div>
@@ -199,7 +207,7 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="mt-8 card overflow-hidden p-0">
           <img
             src="/fields_map.png"
@@ -208,7 +216,7 @@ const HomePage: React.FC = () => {
           />
         </div>
       </section>
-      
+
       <section className="mb-12 bg-red-50 rounded-xl shadow-custom overflow-hidden">
         <div className="bg-gradient-to-r from-red-500 to-red-700 py-3 px-6">
           <h2 className="text-white text-xl font-bold">
