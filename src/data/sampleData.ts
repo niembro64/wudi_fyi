@@ -24,7 +24,7 @@ export const sampleLocations: Location[] = [
     state: 'NY',
     zip: '10577',
     parking_info: 'Parking available at PAC and Great Lawn',
-    google_maps_link: 'https://maps.google.com/?q=SUNY+Purchase',
+    google_maps_link: 'https://maps.google.com/?q=41.04561378382737,-73.6978115030064',
   }
 ];
 
@@ -163,7 +163,7 @@ export const week1Games: Game[] = [
     id: 'game-1',
     home_team: sampleTeams[2], // Team 3
     away_team: sampleTeams[4], // Team 5
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:00',
     field: sampleFields[0], // Field 1
     status: GameStatus.COMPLETED,
@@ -175,7 +175,7 @@ export const week1Games: Game[] = [
     id: 'game-2',
     home_team: sampleTeams[1], // Team 2
     away_team: sampleTeams[0], // Team 1
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:00',
     field: sampleFields[1], // Field 2
     status: GameStatus.COMPLETED,
@@ -187,7 +187,7 @@ export const week1Games: Game[] = [
     id: 'game-3',
     home_team: sampleTeams[5], // Team 6
     away_team: sampleTeams[3], // Team 4
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:00',
     field: sampleFields[2], // Field 3
     status: GameStatus.COMPLETED,
@@ -201,7 +201,7 @@ export const week1Games: Game[] = [
     id: 'game-4',
     home_team: sampleTeams[2], // Team 3
     away_team: sampleTeams[0], // Team 1
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:40',
     field: sampleFields[0], // Field 1
     status: GameStatus.COMPLETED,
@@ -213,7 +213,7 @@ export const week1Games: Game[] = [
     id: 'game-5',
     home_team: sampleTeams[1], // Team 2
     away_team: sampleTeams[3], // Team 4
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:40',
     field: sampleFields[1], // Field 2
     status: GameStatus.COMPLETED,
@@ -225,7 +225,7 @@ export const week1Games: Game[] = [
     id: 'game-6',
     home_team: sampleTeams[5], // Team 6
     away_team: sampleTeams[4], // Team 5
-    date: '2025-04-21',
+    date: '2025-04-22',
     time: '18:40',
     field: sampleFields[2], // Field 3
     status: GameStatus.COMPLETED,
@@ -242,7 +242,7 @@ export const week2Games: Game[] = [
     id: 'game-7',
     home_team: sampleTeams[1], // Team 2
     away_team: sampleTeams[4], // Team 5
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:00',
     field: sampleFields[0], // Field 1
     status: GameStatus.SCHEDULED,
@@ -254,7 +254,7 @@ export const week2Games: Game[] = [
     id: 'game-8',
     home_team: sampleTeams[2], // Team 3
     away_team: sampleTeams[5], // Team 6
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:00',
     field: sampleFields[1], // Field 2
     status: GameStatus.SCHEDULED,
@@ -266,7 +266,7 @@ export const week2Games: Game[] = [
     id: 'game-9',
     home_team: sampleTeams[0], // Team 1
     away_team: sampleTeams[3], // Team 4
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:00',
     field: sampleFields[2], // Field 3
     status: GameStatus.SCHEDULED,
@@ -280,7 +280,7 @@ export const week2Games: Game[] = [
     id: 'game-10',
     home_team: sampleTeams[0], // Team 1
     away_team: sampleTeams[4], // Team 5
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:40',
     field: sampleFields[0], // Field 1
     status: GameStatus.SCHEDULED,
@@ -292,7 +292,7 @@ export const week2Games: Game[] = [
     id: 'game-11',
     home_team: sampleTeams[1], // Team 2
     away_team: sampleTeams[5], // Team 6
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:40',
     field: sampleFields[1], // Field 2
     status: GameStatus.SCHEDULED,
@@ -304,7 +304,7 @@ export const week2Games: Game[] = [
     id: 'game-12',
     home_team: sampleTeams[2], // Team 3
     away_team: sampleTeams[3], // Team 4
-    date: '2025-04-28',
+    date: '2025-04-29',
     time: '18:40',
     field: sampleFields[2], // Field 3
     status: GameStatus.SCHEDULED,
@@ -321,7 +321,7 @@ export const week3Games: Game[] = [
     id: 'game-13',
     home_team: sampleTeams[0], // Team 1
     away_team: sampleTeams[5], // Team 6
-    date: '2025-05-05',
+    date: '2025-05-06',
     time: '18:00',
     field: sampleFields[0], // Field 1
     status: GameStatus.SCHEDULED,
@@ -333,7 +333,7 @@ export const week3Games: Game[] = [
     id: 'game-14',
     home_team: sampleTeams[3], // Team 4
     away_team: sampleTeams[4], // Team 5
-    date: '2025-05-05',
+    date: '2025-05-06',
     time: '18:00',
     field: sampleFields[1], // Field 2
     status: GameStatus.SCHEDULED,
@@ -345,7 +345,7 @@ export const week3Games: Game[] = [
     id: 'game-15',
     home_team: sampleTeams[1], // Team 2
     away_team: sampleTeams[2], // Team 3
-    date: '2025-05-05',
+    date: '2025-05-06',
     time: '18:00',
     field: sampleFields[2], // Field 3
     status: GameStatus.SCHEDULED,
@@ -359,7 +359,7 @@ export const week3Games: Game[] = [
     id: 'game-16',
     home_team: sampleTeams[0], // placeholder for Semifinal 1
     away_team: sampleTeams[3], // placeholder for Semifinal 1
-    date: '2025-05-05',
+    date: '2025-05-06',
     time: '18:40',
     field: sampleFields[0], // Field 1
     status: GameStatus.SCHEDULED,
@@ -371,7 +371,7 @@ export const week3Games: Game[] = [
     id: 'game-17',
     home_team: sampleTeams[1], // placeholder for Semifinal 2
     away_team: sampleTeams[5], // placeholder for Semifinal 2
-    date: '2025-05-05',
+    date: '2025-05-06',
     time: '18:40',
     field: sampleFields[1], // Field 2
     status: GameStatus.SCHEDULED,
@@ -388,7 +388,7 @@ export const week4Games: Game[] = [
     id: 'game-18',
     home_team: sampleTeams[0], // placeholder for Final
     away_team: sampleTeams[1], // placeholder for Final
-    date: '2025-05-12',
+    date: '2025-05-13',
     time: '18:00',
     field: sampleFields[0], // Field 1
     status: GameStatus.SCHEDULED,
@@ -401,7 +401,7 @@ export const week4Games: Game[] = [
     id: 'game-19',
     home_team: sampleTeams[3], // placeholder for 3rd Place
     away_team: sampleTeams[5], // placeholder for 3rd Place
-    date: '2025-05-12',
+    date: '2025-05-13',
     time: '18:00',
     field: sampleFields[1], // Field 2
     status: GameStatus.SCHEDULED,
@@ -423,9 +423,9 @@ export const sampleGames: Game[] = [
 export const springCoedSchedule: Schedule = {
   id: 'schedule-spring-coed-2025',
   games: sampleGames,
-  start_date: '2025-04-21',
-  end_date: '2025-05-12',
-  playoff_start_date: '2025-05-05',
+  start_date: '2025-04-22',
+  end_date: '2025-05-13',
+  playoff_start_date: '2025-05-06',
   weeks: 4
 };
 
@@ -447,7 +447,7 @@ export const sampleLeagues: League[] = [
     teams: sampleTeams,
     schedule: springCoedSchedule,
     coordinators: [samplePeople[2], samplePeople[3]],
-    description: 'Our Co-ed 5v5 Outdoor League is on Monday nights starting in late April. It will run for 4 weeks directly before our summer season starts.',
+    description: 'Our Co-ed 5v5 Outdoor League is on Tuesday nights starting in late April. It will run for 4 weeks directly before our summer season starts.',
     rules: {
       field_size: 'Length: 50 yards, Width: 30 yards, Endzones: 10 yards',
       game_length: '40 minutes per game, 2 games per night (6:00 PM and 6:40 PM)',
@@ -472,12 +472,12 @@ export const sampleLeagues: League[] = [
     teams: null,
     schedule: springWomensSchedule,
     coordinators: [samplePeople[0]],
-    description: 'Our Women\'s League is meant as a community event to bring together all DOW players. We use the term DOW (Defender of Women) to be inclusive of women and non-binary players who choose to defend against women.',
+    description: 'Our Women\'s League is meant as a community event to bring together women players.',
     rules: {
       field_size: null,
       game_length: null,
       timeouts: null,
-      gender_ratio: 'DOW only',
+      gender_ratio: 'Women only',
       substitution_rules: null,
       other_rules: 'Each week will have a short skill focus. In that skill focus there will be a beginner section as well as an advanced section.'
     },
@@ -499,7 +499,7 @@ export const sampleSeasons: SeasonInfo[] = [
     season: Season.SPRING,
     year: 2025,
     leagues: sampleLeagues,
-    start_date: '2025-04-21',
+    start_date: '2025-04-22',
     end_date: '2025-05-14',
     description: 'WUDi\'s Spring Leagues consists of two leagues: 5v5 Outdoor League and a Women\'s League. Both leagues play at SUNY Purchase in Purchase, NY.',
     theme: null,
@@ -533,7 +533,7 @@ export const sampleAnnouncements: Announcement[] = [
     title: 'Spring League 2025 Starting Soon!',
     content: `Welcome to Spring League 2025! We're excited to welcome you all to what is going to be a wonderful Spring League for WUDI!
 
-The Spring 5v5 Outdoor League games are held at SUNY Purchase on Monday evenings. Each team will have two games per night:
+The Spring 5v5 Outdoor League games are held at SUNY Purchase on Tuesday evenings. Each team will have two games per night:
 - First game starts at 6:00 PM
 - Second game starts at 6:40 PM
 
