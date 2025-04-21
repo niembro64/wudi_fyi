@@ -127,6 +127,12 @@ const LeaguePage: React.FC = () => {
 
   return (
     <div>
+      <div className="bg-gray-100 text-gray-600 text-sm py-3 px-4 mb-6 rounded-lg">
+        <p className="text-center">
+          This is not the official WUDI website. This is a supplemental information site that may be useful to players. 
+          For official information, please visit <a href="https://wudi.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">wudi.org</a>.
+        </p>
+      </div>
       <div className="mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-primary-dark mb-4">
           {leagueData.name}

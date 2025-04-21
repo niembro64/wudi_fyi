@@ -8,6 +8,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
+      <div className="bg-gray-100 text-gray-600 text-sm py-3 px-4 mb-6 rounded-lg">
+        <p className="text-center">
+          This is not the official WUDI website. This is a supplemental information site that may be useful to players. 
+          For official information, please visit <a href="https://wudi.org" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">wudi.org</a>.
+        </p>
+      </div>
       <section className="relative bg-gradient-to-r from-primary to-primary-dark text-white rounded-2xl overflow-hidden shadow-custom mb-12">
         <div className="relative z-10 py-16 px-6 md:px-12 text-center animate-pulse-slow">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-md animate-float">
