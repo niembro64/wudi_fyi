@@ -6,7 +6,7 @@ const MainLayout: React.FC = () => {
   const currentSeason = wudiInfo.current_season;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 overflow-x-hidden">
       <header>
         <div className="bg-primary shadow-md">
           <div className="container mx-auto px-4 py-4">
