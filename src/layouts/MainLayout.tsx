@@ -68,9 +68,15 @@ const MainLayout: React.FC = () => {
         </div>
       </header>
 
-      <main className="flex-grow py-8">
+      {!isHomePage && (
+        <div className="bg-white shadow-sm">
+          <div className="container mx-auto px-4">
+            <Breadcrumbs />
+          </div>
+        </div>
+      )}
+      <main className="flex-grow py-6">
         <div className="container mx-auto px-4">
-          {!isHomePage && <Breadcrumbs />}
           <Outlet />
         </div>
       </main>

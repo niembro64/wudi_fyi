@@ -69,13 +69,18 @@ const Breadcrumbs: React.FC = () => {
           });
         }
         
-        // Format date and time for more meaningful breadcrumb
-        const gameDate = formatGameDate(game.date);
-        const gameTime = formatGameTime(game.time);
+        // Create shorter team names
+        const homeTeamShort = game.home_team.name.length > 10
+          ? game.home_team.name.substring(0, 10) + '...'
+          : game.home_team.name;
 
-        // Add game to breadcrumbs with date and time information
+        const awayTeamShort = game.away_team.name.length > 10
+          ? game.away_team.name.substring(0, 10) + '...'
+          : game.away_team.name;
+
+        // Add game to breadcrumbs with a shorter label
         breadcrumbs.push({
-          label: `${game.home_team.name} vs ${game.away_team.name} (${gameDate}, ${gameTime})`,
+          label: `${homeTeamShort} vs ${awayTeamShort}`,
           path: `/games/${gameId}`
         });
       } else {
@@ -89,8 +94,8 @@ const Breadcrumbs: React.FC = () => {
   }
 
   return (
-    <nav className="mb-6 px-4 py-3 bg-white rounded-lg shadow-sm" aria-label="Breadcrumbs">
-      <ol className="flex flex-wrap items-center text-sm md:text-base">
+    <nav className="py-2" aria-label="Breadcrumbs">
+      <ol className="flex flex-wrap items-center text-sm">
         {breadcrumbs.map((crumb, index) => {
           const isLast = index === breadcrumbs.length - 1;
 
