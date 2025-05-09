@@ -8,6 +8,7 @@ import MainLayout from './layouts/MainLayout';
 // Pages
 import HomePage from './pages/HomePage';
 import LeaguePage from './pages/LeaguePage';
+import GamePage from './pages/GamePage';
 
 // Not Found Page
 const NotFound = () => {
@@ -27,10 +28,13 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           {/* Home page */}
           <Route index element={<HomePage />} />
-          
+
           {/* League page (schedules) */}
           <Route path="/leagues/:leagueType" element={<LeaguePage />} />
-          
+
+          {/* Game page */}
+          <Route path="/games/:gameId" element={<GamePage />} />
+
           {/* Not found route */}
           <Route path="*" element={<NotFound />} />
         </Route>

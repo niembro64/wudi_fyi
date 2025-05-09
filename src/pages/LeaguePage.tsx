@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { wudiInfo, wudiMapCoordinates } from '../data/sampleData';
 import { Game, LeagueType, Team } from '../types';
+import { getStatsKey, calculateTeamScore } from '../utils/gameUtils';
 
 const LeaguePage: React.FC = () => {
   const { leagueType } = useParams<{ leagueType: string }>();
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
-  const [allTeams, setAllTeams] = useState<Team[]>([]);
 
   // Get current season from WUDI info
   const currentSeason = wudiInfo.current_season;
@@ -67,12 +67,6 @@ const LeaguePage: React.FC = () => {
     );
   }
 
-  // Set all teams when league data is available
-  useEffect(() => {
-    if (leagueData.teams) {
-      setAllTeams(leagueData.teams);
-    }
-  }, [leagueData]);
 
   // Handle team selection toggle
   const toggleTeamSelection = (teamId: string) => {
@@ -326,11 +320,14 @@ const LeaguePage: React.FC = () => {
                                     return (
                                       <tr
                                         key={game.id}
-                                        className={`hover:bg-gray-50 transition-colors duration-150 ${
+                                        className={`hover:bg-gray-50 transition-colors duration-150 cursor-pointer ${
                                           homeTeamHighlight || awayTeamHighlight
                                             ? 'bg-blue-50'
                                             : ''
                                         }`}
+                                        onClick={() => {
+                                          window.location.href = `/games/${game.id}`;
+                                        }}
                                       >
                                         <td
                                           className={`py-3 px-4 text-sm font-medium ${
@@ -342,6 +339,7 @@ const LeaguePage: React.FC = () => {
                                           {getShortTeamName(
                                             game.home_team.name
                                           )}
+                                          {getLiveScore(game.id, game.home_team.id)}
                                         </td>
                                         <td
                                           className={`py-3 px-4 text-sm font-medium ${
@@ -353,8 +351,14 @@ const LeaguePage: React.FC = () => {
                                           {getShortTeamName(
                                             game.away_team.name
                                           )}
+                                          {getLiveScore(game.id, game.away_team.id)}
                                         </td>
-                                        <td className="py-3 px-4 text-sm font-medium text-gray-900">
+                                        <td
+                                          className="py-3 px-4 text-sm font-medium text-gray-900"
+                                          onClick={(e) => {
+                                            e.stopPropagation(); // Prevent row click
+                                          }}
+                                        >
                                           <a
                                             href={getFieldMapLink(
                                               game.field.number
@@ -675,12 +679,31 @@ const formatDate = (dateString: string): string => {
   });
 };
 
-const formatShortDate = (dateString: string): string => {
-  const date = new Date(dateString);
-  const month = date.toLocaleString('en-US', { month: 'short' });
-  const day = date.getDate();
 
-  return `${month} ${day}`;
+// Gets the live score for a team (stored in localStorage)
+const getLiveScore = (gameId: string, teamId: string): React.ReactNode => {
+  try {
+    const statsKey = getStatsKey(gameId, teamId);
+    const statsData = localStorage.getItem(statsKey);
+
+    if (statsData) {
+      const parsedStats = JSON.parse(statsData);
+      const score = calculateTeamScore(parsedStats);
+
+      if (score > 0) {
+        return (
+          <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">
+            {score}
+          </span>
+        );
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error('Error calculating live score:', error);
+    return null;
+  }
 };
 
 const formatTime = (timeString: string): string => {
