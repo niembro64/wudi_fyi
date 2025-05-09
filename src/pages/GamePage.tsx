@@ -139,7 +139,7 @@ const GamePage: React.FC = () => {
       </div>
 
       {/* Game Header */}
-      <div className="mb-6">
+      <div className="mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
         {/* Game Info Component */}
         <GameInfo
           date={game.date}
@@ -149,7 +149,7 @@ const GamePage: React.FC = () => {
         />
 
         {/* Teams and Scoreboard */}
-        <div className="card bg-white shadow-custom mb-6">
+        <div className="bg-white shadow-md mb-6">
           <TeamScoreHeader
             homeTeam={game.home_team}
             awayTeam={game.away_team}
@@ -173,21 +173,21 @@ const GamePage: React.FC = () => {
 
         {/* Tab Content */}
         {selectedTeam && (
-          <div className="card bg-white">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">
+          <div className="w-full">
+            <h2 className="text-xl font-bold text-gray-800 mb-4 px-2">
               {selectedTeam.name} -{' '}
               {activeTab === 'attendance' ? 'Attendance' : 'Stats'}
             </h2>
 
             {activeTab === 'attendance' && (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-4 w-screen">
                 <table className="w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-4/5">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-4/5">
                         Player
                       </th>
-                      <th className="px-1 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                      <th className="px-1 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5 pr-3">
                         Present
                       </th>
                     </tr>
@@ -196,14 +196,14 @@ const GamePage: React.FC = () => {
                     {selectedTeam.players.map((player) => {
                       const isPresent = attendanceData[player.id] || false;
                       return (
-                        <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-2 py-2 pr-4">
+                        <tr key={player.id} className="hover:bg-gray-50 border-b border-gray-100">
+                          <td className="px-3 py-2 pr-3">
                             <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
                           </td>
-                          <td className="px-1 py-2 text-right">
-                            <div className="flex justify-end pr-1">
+                          <td className="px-0 py-2 text-right">
+                            <div className="flex justify-end pr-3">
                               <AttendanceCheckbox
                                 isPresent={isPresent}
                                 onToggle={() => toggleAttendance(player.id)}
@@ -220,17 +220,17 @@ const GamePage: React.FC = () => {
             )}
 
             {activeTab === 'stats' && (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto -mx-4 w-screen">
                 <table className="w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/5">
+                      <th className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/5">
                         Player
                       </th>
-                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                      <th className="px-1 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                         Assists
                       </th>
-                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                      <th className="px-1 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                         Goals
                       </th>
                     </tr>
@@ -240,8 +240,8 @@ const GamePage: React.FC = () => {
                       const playerStats =
                         statsData[player.id] || getDefaultStats();
                       return (
-                        <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-1 py-2 pr-4">
+                        <tr key={player.id} className="hover:bg-gray-50 border-b border-gray-100">
+                          <td className="px-3 py-2 pr-3">
                             <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
