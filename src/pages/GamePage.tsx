@@ -184,10 +184,10 @@ const GamePage: React.FC = () => {
                 <table className="w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/4">
+                      <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-4/5">
                         Player
                       </th>
-                      <th className="px-1 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+                      <th className="px-1 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                         Present
                       </th>
                     </tr>
@@ -197,13 +197,13 @@ const GamePage: React.FC = () => {
                       const isPresent = attendanceData[player.id] || false;
                       return (
                         <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-2 py-2">
+                          <td className="px-2 py-2 pr-4">
                             <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
                           </td>
                           <td className="px-1 py-2 text-right">
-                            <div className="flex justify-end">
+                            <div className="flex justify-end pr-1">
                               <AttendanceCheckbox
                                 isPresent={isPresent}
                                 onToggle={() => toggleAttendance(player.id)}
@@ -224,13 +224,13 @@ const GamePage: React.FC = () => {
                 <table className="w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
+                      <th className="px-1 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/5">
                         Player
                       </th>
-                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
+                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                         Assists
                       </th>
-                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
+                      <th className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                         Goals
                       </th>
                     </tr>
@@ -241,13 +241,13 @@ const GamePage: React.FC = () => {
                         statsData[player.id] || getDefaultStats();
                       return (
                         <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-1 py-2">
+                          <td className="px-1 py-2 pr-4">
                             <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
                           </td>
                           <td className="px-0 py-2 relative">
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-end">
                               <StatCounter
                                 value={playerStats.assists || 0}
                                 onDecrement={() =>
@@ -261,7 +261,7 @@ const GamePage: React.FC = () => {
                             </div>
                           </td>
                           <td className="px-0 py-2 relative">
-                            <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-end">
                               <StatCounter
                                 value={playerStats.goals || 0}
                                 onDecrement={() =>
