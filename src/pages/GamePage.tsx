@@ -27,22 +27,47 @@ const GamePage: React.FC = () => {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>('attendance');
 
-  // Stats and attendance storage
-  const [attendanceData, setAttendanceData] = useLocalStorage<
-    Record<string, boolean>
-  >(getAttendanceKey(gameId || '', selectedTeam?.id || ''), {});
+  // State for storing the game's teams
+  const [homeTeam, setHomeTeam] = useState<Team | null>(null);
+  const [awayTeam, setAwayTeam] = useState<Team | null>(null);
 
-  const [statsData, setStatsData] = useLocalStorage<
+  // Use these keys for localStorage (they won't change during component lifecycle)
+  const homeAttendanceKey = homeTeam ? getAttendanceKey(gameId || '', homeTeam.id) : '';
+  const awayAttendanceKey = awayTeam ? getAttendanceKey(gameId || '', awayTeam.id) : '';
+  const homeStatsKey = homeTeam ? getStatsKey(gameId || '', homeTeam.id) : '';
+  const awayStatsKey = awayTeam ? getStatsKey(gameId || '', awayTeam.id) : '';
+
+  // Create separate hooks for home and away team data
+  const [homeTeamAttendance, setHomeTeamAttendance] = useLocalStorage<
+    Record<string, boolean>
+  >(homeAttendanceKey, {});
+
+  const [awayTeamAttendance, setAwayTeamAttendance] = useLocalStorage<
+    Record<string, boolean>
+  >(awayAttendanceKey, {});
+
+  const [homeTeamStats, setHomeTeamStats] = useLocalStorage<
     Record<string, { assists: number; goals: number }>
-  >(getStatsKey(gameId || '', selectedTeam?.id || ''), {});
+  >(homeStatsKey, {});
+
+  const [awayTeamStats, setAwayTeamStats] = useLocalStorage<
+    Record<string, { assists: number; goals: number }>
+  >(awayStatsKey, {});
 
   // Load game data on component mount
   useEffect(() => {
     if (gameId) {
       const foundGame = findGameById(gameId);
       setGame(foundGame);
+
+      // Set team references when game is found
+      if (foundGame) {
+        setHomeTeam(foundGame.home_team);
+        setAwayTeam(foundGame.away_team);
+      }
     }
   }, [gameId]);
+
 
   // Reset active tab when team changes
   useEffect(() => {
@@ -58,10 +83,17 @@ const GamePage: React.FC = () => {
 
   // Handle attendance toggle
   const toggleAttendance = (playerId: string) => {
-    setAttendanceData((prev) => ({
-      ...prev,
-      [playerId]: !prev[playerId],
-    }));
+    if (selectedTeam?.id === game?.home_team.id) {
+      setHomeTeamAttendance((prev) => ({
+        ...prev,
+        [playerId]: !prev[playerId],
+      }));
+    } else if (selectedTeam?.id === game?.away_team.id) {
+      setAwayTeamAttendance((prev) => ({
+        ...prev,
+        [playerId]: !prev[playerId],
+      }));
+    }
   };
 
   // Update stats (increment/decrement)
@@ -70,7 +102,12 @@ const GamePage: React.FC = () => {
     statType: 'assists' | 'goals',
     increment: boolean
   ) => {
-    setStatsData((prev) => {
+    // Get the right setter based on selected team
+    const setStats = selectedTeam?.id === game?.home_team.id
+      ? setHomeTeamStats
+      : setAwayTeamStats;
+
+    setStats((prev) => {
       const playerStats = prev[playerId] || getDefaultStats();
       const currentValue = playerStats[statType] || 0;
       const newValue = increment
@@ -88,15 +125,12 @@ const GamePage: React.FC = () => {
   };
 
   // Calculate scores based on goals
-  const homeTeamScore = game ? calculateTeamScore(statsData) : 0;
+  const homeTeamScore = game
+    ? calculateTeamScore(homeTeamStats)
+    : 0;
 
   const awayTeamScore = game
-    ? calculateTeamScore(
-        JSON.parse(
-          localStorage.getItem(getStatsKey(gameId || '', game.away_team.id)) ||
-            '{}'
-        )
-      )
+    ? calculateTeamScore(awayTeamStats)
     : 0;
 
   // Define tabs for the tab selector
@@ -190,7 +224,10 @@ const GamePage: React.FC = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {selectedTeam.players.map((player) => {
-                      const isPresent = attendanceData[player.id] || false;
+                      const isPresent =
+                        selectedTeam?.id === game?.home_team.id
+                          ? homeTeamAttendance[player.id] || false
+                          : awayTeamAttendance[player.id] || false;
                       return (
                         <tr key={player.id} className="hover:bg-gray-50 border-b border-gray-100">
                           <td className="px-3 py-2 pr-3">
@@ -234,7 +271,9 @@ const GamePage: React.FC = () => {
                   <tbody className="bg-white divide-y divide-gray-200">
                     {selectedTeam.players.map((player) => {
                       const playerStats =
-                        statsData[player.id] || getDefaultStats();
+                        selectedTeam?.id === game?.home_team.id
+                          ? homeTeamStats[player.id] || getDefaultStats()
+                          : awayTeamStats[player.id] || getDefaultStats();
                       return (
                         <tr key={player.id} className="hover:bg-gray-50 border-b border-gray-100">
                           <td className="px-3 py-2 pr-3">

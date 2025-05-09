@@ -43,12 +43,11 @@ export const getStatsKey = (gameId: string, teamId: string): string => {
 
 /**
  * Calculate team score based on player stats
- * @param gameId The game ID
- * @param teamId The team ID
+ * @param statsData Player stats data from localStorage
  * @returns The calculated score
  */
-export const calculateTeamScore = (gameStats: Record<string, { assists: number, goals: number }>): number => {
-  return Object.values(gameStats).reduce((score, playerStats) => {
+export const calculateTeamScore = (statsData: Record<string, { assists: number, goals: number }>): number => {
+  return Object.values(statsData).reduce((score, playerStats) => {
     return score + (playerStats.goals || 0);
   }, 0);
 };
