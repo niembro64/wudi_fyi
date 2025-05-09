@@ -19,7 +19,7 @@ const StatCounter: React.FC<StatCounterProps> = ({
   statName,
 }) => {
   return (
-    <div className="relative w-20 h-10 mx-1">
+    <div className="relative w-20 h-10 mx-2">
       {/* Centered number behind the buttons */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
         <span className="text-lg font-medium">{value}</span>
