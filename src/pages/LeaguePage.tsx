@@ -8,6 +8,7 @@ import { getStatsKey, calculateTeamScore } from '../utils/gameUtils';
 const LeaguePage: React.FC = () => {
   const { leagueType } = useParams<{ leagueType: string }>();
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
+  const [showPastGames, setShowPastGames] = useState<boolean>(true);
 
   // Get current season from WUDI info
   const currentSeason = wudiInfo.current_season;
@@ -151,9 +152,44 @@ const LeaguePage: React.FC = () => {
 
       {/* Schedule Section - Moved to the top */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6 text-gray-dark border-b-2 border-primary pb-2">
-          Schedule
-        </h2>
+        <div className="flex justify-between items-center mb-6 border-b-2 border-primary pb-2">
+          <h2 className="text-2xl font-bold text-gray-dark">
+            Schedule
+          </h2>
+          <button
+            onClick={() => setShowPastGames(!showPastGames)}
+            className={`flex items-center px-4 py-2 rounded-full text-sm font-medium shadow-sm transition-colors ${
+              showPastGames
+                ? 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                : 'bg-primary-light text-primary-dark hover:bg-primary-light/80'
+            }`}
+          >
+            <svg
+              className="w-4 h-4 mr-1.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {showPastGames ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              )}
+            </svg>
+            {showPastGames ? 'Hide Past Games' : 'Show Past Games'}
+          </button>
+        </div>
 
         {/* Team Filter */}
         {leagueData.teams && leagueData.teams.length > 0 && (
@@ -218,6 +254,17 @@ const LeaguePage: React.FC = () => {
           <div className="space-y-8">
             {Object.keys(gamesByDate)
               .sort()
+              .filter(date => {
+                // Filter out past games if showPastGames is false
+                if (!showPastGames) {
+                  const gameDate = new Date(date);
+                  const today = new Date();
+                  today.setHours(0, 0, 0, 0);
+                  gameDate.setHours(0, 0, 0, 0);
+                  return gameDate.getTime() >= today.getTime();
+                }
+                return true;
+              })
               .map((date) => {
                 // Group games by time for this date
                 const gamesByTime: Record<string, Game[]> = {};
@@ -233,15 +280,25 @@ const LeaguePage: React.FC = () => {
                 today.setHours(0, 0, 0, 0);
                 gameDate.setHours(0, 0, 0, 0);
 
+                // Future games
                 let dayBgClass = 'bg-white';
-                let dayBorderClass = 'border-gray-200';
+                let dayBorderClass = 'border-green-200';
+                let dayTextClass = 'text-gray-dark';
+                let dayIconClass = 'text-green-500';
 
+                // Past games
                 if (gameDate.getTime() < today.getTime()) {
-                  dayBgClass = 'bg-gray-100';
-                  dayBorderClass = 'border-gray-300';
-                } else if (gameDate.getTime() === today.getTime()) {
+                  dayBgClass = 'bg-gray-200';
+                  dayBorderClass = 'border-gray-400';
+                  dayTextClass = 'text-gray-600';
+                  dayIconClass = 'text-gray-500';
+                }
+                // Today's games
+                else if (gameDate.getTime() === today.getTime()) {
                   dayBgClass = 'bg-primary-light';
                   dayBorderClass = 'border-primary';
+                  dayTextClass = 'text-primary-dark';
+                  dayIconClass = 'text-primary';
                 }
 
                 return (
@@ -249,9 +306,9 @@ const LeaguePage: React.FC = () => {
                     key={date}
                     className={`card ${dayBgClass} border-l-4 ${dayBorderClass} overflow-hidden`}
                   >
-                    <h3 className="text-xl font-bold text-gray-dark mb-4 flex items-center">
+                    <h3 className={`text-xl font-bold ${dayTextClass} mb-4 flex items-center`}>
                       <svg
-                        className="w-5 h-5 mr-2 text-primary"
+                        className={`w-5 h-5 mr-2 ${dayIconClass}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -272,9 +329,9 @@ const LeaguePage: React.FC = () => {
                         .sort()
                         .map((time) => (
                           <div key={`${date}-${time}`}>
-                            <h4 className="text-lg font-semibold text-primary-dark mb-3 flex items-center">
+                            <h4 className={`text-lg font-semibold ${dayTextClass} mb-3 flex items-center`}>
                               <svg
-                                className="w-4 h-4 mr-2"
+                                className={`w-4 h-4 mr-2 ${dayIconClass}`}
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -391,7 +448,9 @@ const LeaguePage: React.FC = () => {
         ) : (
           <div className="card text-center py-12">
             <p className="text-lg text-gray-600">
-              {selectedTeams.length > 0
+              {!showPastGames && Object.keys(gamesByDate).length > 0
+                ? 'No upcoming games found. Try showing past games.'
+                : selectedTeams.length > 0
                 ? 'No games found for the selected teams. Try selecting different teams or clear the filter.'
                 : 'No schedule available yet.'}
             </p>
@@ -402,16 +461,16 @@ const LeaguePage: React.FC = () => {
           <h3 className="text-lg font-bold text-gray-dark mb-4">Legend</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex items-center">
-              <div className="w-6 h-6 bg-gray-100 border-l-4 border-gray-300 rounded mr-3"></div>
-              <span className="text-sm text-gray-600">Past Day</span>
+              <div className="w-8 h-8 bg-gray-200 border-l-4 border-gray-400 rounded mr-3 shadow-sm"></div>
+              <span className="text-sm text-gray-600 font-medium">Past Games</span>
             </div>
             <div className="flex items-center">
-              <div className="w-6 h-6 bg-primary-light border-l-4 border-primary rounded mr-3"></div>
-              <span className="text-sm text-gray-600">Today</span>
+              <div className="w-8 h-8 bg-primary-light border-l-4 border-primary rounded mr-3 shadow-sm"></div>
+              <span className="text-sm text-primary-dark font-medium">Today's Games</span>
             </div>
             <div className="flex items-center">
-              <div className="w-6 h-6 bg-white border-l-4 border-gray-200 rounded mr-3"></div>
-              <span className="text-sm text-gray-600">Future Day</span>
+              <div className="w-8 h-8 bg-white border-l-4 border-green-200 rounded mr-3 shadow-sm"></div>
+              <span className="text-sm text-gray-700 font-medium">Upcoming Games</span>
             </div>
           </div>
           {selectedTeams.length > 0 && (

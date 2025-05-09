@@ -18,11 +18,32 @@ const StatCounter: React.FC<StatCounterProps> = ({
   onIncrement,
   statName,
 }) => {
+  // Map 0–9 to tailwind bg classes:
+  const bgClasses = [
+    'bg-white',
+    'bg-blue-100',
+    'bg-blue-200',
+    'bg-blue-300',
+    'bg-blue-400',
+    'bg-blue-500',
+    'bg-blue-600',
+    'bg-blue-700',
+    'bg-blue-800',
+    'bg-blue-900',
+  ];
+
+  // clamp value into [0,9]
+  const idx = Math.min(Math.max(value, 0), 9);
+  const backgroundClass = bgClasses[idx];
+
+  // switch to white text/icons when value ≥ 5
+  const textColorClass = value >= 5 ? 'text-white' : 'text-gray-800';
+
   return (
-    <div className="relative w-20 h-10 mx-2">
+    <div className={`relative w-20 h-10 mx-2 ${backgroundClass}`}>
       {/* Centered number behind the buttons */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <span className="text-lg font-medium">{value}</span>
+        <span className={`${textColorClass} text-lg font-medium`}>{value}</span>
       </div>
 
       {/* Left half: minus button */}
@@ -33,12 +54,12 @@ const StatCounter: React.FC<StatCounterProps> = ({
           absolute top-0 left-0
           w-10 h-full
           bg-transparent flex items-center justify-center z-20
-
+          
           /* outer border only */
           border-t border-l border-b border-gray-300 border-r-0
 
-          /* default icon/text color */
-          text-gray-600
+          /* dynamic icon/text color */
+          ${textColorClass}
 
           /* press feedback: border & text */
           transition-colors duration-100
@@ -74,8 +95,8 @@ const StatCounter: React.FC<StatCounterProps> = ({
           /* outer border only */
           border-t border-r border-b border-gray-300 border-l-0
 
-          /* default icon/text color */
-          text-gray-600
+          /* dynamic icon/text color */
+          ${textColorClass}
 
           /* press feedback: border & text */
           transition-colors duration-100
