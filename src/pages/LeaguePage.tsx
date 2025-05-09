@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { wudiInfo, wudiMapCoordinates } from '../data/sampleData';
 import { Game, LeagueType, Team } from '../types';
-import { getStatsKey, calculateTeamScore } from '../utils/gameUtils';
+import { getStatsKey, calculateTeamScore, getAttendanceKey, getDefaultStats } from '../utils/gameUtils';
 
 const LeaguePage: React.FC = () => {
+  const navigate = useNavigate();
   const { leagueType } = useParams<{ leagueType: string }>();
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [showPastGames, setShowPastGames] = useState<boolean>(true);
@@ -82,6 +83,35 @@ const LeaguePage: React.FC = () => {
       `wudi-selected-teams-${leagueType}`,
       JSON.stringify(newSelectedTeams)
     );
+  };
+
+  // Handle game click and ensure localStorage is initialized
+  const handleGameClick = (game: Game) => {
+    // Initialize localStorage for both teams if needed
+    const homeAttendanceKey = getAttendanceKey(game.id, game.home_team.id);
+    const awayAttendanceKey = getAttendanceKey(game.id, game.away_team.id);
+    const homeStatsKey = getStatsKey(game.id, game.home_team.id);
+    const awayStatsKey = getStatsKey(game.id, game.away_team.id);
+
+    // Check if keys exist in localStorage and initialize if they don't
+    if (!localStorage.getItem(homeAttendanceKey)) {
+      localStorage.setItem(homeAttendanceKey, JSON.stringify({}));
+    }
+
+    if (!localStorage.getItem(awayAttendanceKey)) {
+      localStorage.setItem(awayAttendanceKey, JSON.stringify({}));
+    }
+
+    if (!localStorage.getItem(homeStatsKey)) {
+      localStorage.setItem(homeStatsKey, JSON.stringify({}));
+    }
+
+    if (!localStorage.getItem(awayStatsKey)) {
+      localStorage.setItem(awayStatsKey, JSON.stringify({}));
+    }
+
+    // Navigate to the game page using React Router
+    navigate(`/games/${game.id}`);
   };
 
   // Group games by date
@@ -382,9 +412,7 @@ const LeaguePage: React.FC = () => {
                                             ? 'bg-blue-50'
                                             : ''
                                         }`}
-                                        onClick={() => {
-                                          window.location.href = `/games/${game.id}`;
-                                        }}
+                                        onClick={() => handleGameClick(game)}
                                       >
                                         <td
                                           className={`py-3 px-4 text-sm font-medium ${

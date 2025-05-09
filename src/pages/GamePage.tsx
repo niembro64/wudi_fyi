@@ -64,6 +64,29 @@ const GamePage: React.FC = () => {
       if (foundGame) {
         setHomeTeam(foundGame.home_team);
         setAwayTeam(foundGame.away_team);
+
+        // Initialize localStorage for both teams if needed
+        const homeAttKey = getAttendanceKey(gameId, foundGame.home_team.id);
+        const awayAttKey = getAttendanceKey(gameId, foundGame.away_team.id);
+        const homeStatsKey = getStatsKey(gameId, foundGame.home_team.id);
+        const awayStatsKey = getStatsKey(gameId, foundGame.away_team.id);
+
+        // Check if keys exist in localStorage and initialize if they don't
+        if (!localStorage.getItem(homeAttKey)) {
+          localStorage.setItem(homeAttKey, JSON.stringify({}));
+        }
+
+        if (!localStorage.getItem(awayAttKey)) {
+          localStorage.setItem(awayAttKey, JSON.stringify({}));
+        }
+
+        if (!localStorage.getItem(homeStatsKey)) {
+          localStorage.setItem(homeStatsKey, JSON.stringify({}));
+        }
+
+        if (!localStorage.getItem(awayStatsKey)) {
+          localStorage.setItem(awayStatsKey, JSON.stringify({}));
+        }
       }
     }
   }, [gameId]);

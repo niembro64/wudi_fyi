@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 
 // Layout
@@ -16,7 +16,7 @@ const NotFound = () => {
     <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
       <h1 className="text-4xl font-bold text-gray-dark mb-4">404 - Page Not Found</h1>
       <p className="text-lg text-gray mb-8">The page you are looking for does not exist.</p>
-      <a href="/" className="btn">Return to Home</a>
+      <Link to="/" className="btn">Return to Home</Link>
     </div>
   );
 };
