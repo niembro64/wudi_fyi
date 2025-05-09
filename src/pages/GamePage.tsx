@@ -126,59 +126,54 @@ const GamePage: React.FC = () => {
 
       {/* Game Header */}
       <div className="mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <button
-            onClick={() => navigate(-1)}
-            className="text-primary hover:text-primary-dark transition-colors"
-          >
-            <div className="flex items-center">
-              <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Schedule
-            </div>
-          </button>
-          <div className="flex items-center">
-            <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span className="font-medium text-gray-700">
-              {formatGameDate(game.date)} • {formatGameTime(game.time)}
-            </span>
-          </div>
-          <div className="flex items-center">
-            <svg className="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <a 
-              href={game.field.location?.google_maps_link || '#'} 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-primary hover:text-primary-dark transition-colors"
+        <div className="mb-4">
+          {/* Back button - always visible */}
+          <div className="mb-3">
+            <button
+              onClick={() => navigate(-1)}
+              className="text-primary hover:text-primary-dark transition-colors"
             >
-              {game.field.name}
-            </a>
+              <div className="flex items-center">
+                <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Schedule
+              </div>
+            </button>
+          </div>
+
+          {/* Game info - stacked on mobile, horizontal on larger screens */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="font-medium text-gray-700 text-sm sm:text-base">
+                {formatGameDate(game.date)} • {formatGameTime(game.time)}
+              </span>
+            </div>
+            <div className="flex items-center">
+              <svg className="w-5 h-5 mr-2 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <a
+                href={game.field.location?.google_maps_link || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:text-primary-dark transition-colors text-sm sm:text-base"
+              >
+                {game.field.name}
+              </a>
+            </div>
           </div>
         </div>
 
         {/* Teams and Scoreboard */}
         <div className="card bg-white shadow-custom mb-6">
-          <div className="flex justify-between items-center">
-            {/* Home Team Button */}
-            <button
-              onClick={() => handleTeamSelect(game.home_team)}
-              className={`flex-1 py-4 px-6 text-left text-lg font-bold rounded-l-lg transition-all ${
-                selectedTeam?.id === game.home_team.id
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              {game.home_team.name}
-            </button>
-
-            {/* Score */}
-            <div className="flex items-center justify-center px-8 py-4 bg-gray-50">
+          <div className="flex flex-col sm:flex-row">
+            {/* Mobile Layout - Score at top on small screens */}
+            <div className="flex items-center justify-center py-3 bg-gray-50 sm:hidden">
               <div className="text-center">
                 <div className="flex items-center space-x-4">
                   <span className="text-3xl font-bold text-primary-dark">
@@ -193,17 +188,47 @@ const GamePage: React.FC = () => {
               </div>
             </div>
 
-            {/* Away Team Button */}
-            <button
-              onClick={() => handleTeamSelect(game.away_team)}
-              className={`flex-1 py-4 px-6 text-right text-lg font-bold rounded-r-lg transition-all ${
-                selectedTeam?.id === game.away_team.id
-                  ? 'bg-primary text-white'
-                  : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              {game.away_team.name}
-            </button>
+            <div className="flex justify-between items-center w-full">
+              {/* Home Team Button */}
+              <button
+                onClick={() => handleTeamSelect(game.home_team)}
+                className={`flex-1 py-3 sm:py-4 px-3 sm:px-6 text-center sm:text-left text-base sm:text-lg font-bold rounded-l-lg transition-all ${
+                  selectedTeam?.id === game.home_team.id
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                {game.home_team.name}
+              </button>
+
+              {/* Score - Hide on mobile, show on larger screens */}
+              <div className="hidden sm:flex items-center justify-center px-4 sm:px-8 py-4 bg-gray-50">
+                <div className="text-center">
+                  <div className="flex items-center space-x-4">
+                    <span className="text-3xl font-bold text-primary-dark">
+                      {homeTeamScore}
+                    </span>
+                    <span className="text-lg font-medium text-gray-400">-</span>
+                    <span className="text-3xl font-bold text-primary-dark">
+                      {awayTeamScore}
+                    </span>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">Final Score</div>
+                </div>
+              </div>
+
+              {/* Away Team Button */}
+              <button
+                onClick={() => handleTeamSelect(game.away_team)}
+                className={`flex-1 py-3 sm:py-4 px-3 sm:px-6 text-center sm:text-right text-base sm:text-lg font-bold rounded-r-lg transition-all ${
+                  selectedTeam?.id === game.away_team.id
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                {game.away_team.name}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -255,10 +280,10 @@ const GamePage: React.FC = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-3/4">
                         Player
                       </th>
-                      <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-3 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
                         Present
                       </th>
                     </tr>
@@ -268,23 +293,24 @@ const GamePage: React.FC = () => {
                       const isPresent = attendanceData[player.id] || false;
                       return (
                         <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-gray-900">
+                          <td className="px-3 py-2">
+                            <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right">
+                          <td className="px-3 py-2 text-right">
                             <div className="flex justify-end">
                               <button
                                 onClick={() => toggleAttendance(player.id)}
-                                className={`w-6 h-6 flex items-center justify-center rounded border ${
+                                className={`w-8 h-8 flex items-center justify-center rounded-full shadow-sm ${
                                   isPresent
                                     ? 'bg-primary border-primary text-white'
-                                    : 'bg-white border-gray-300'
+                                    : 'bg-white border border-gray-300'
                                 }`}
+                                aria-label={isPresent ? "Mark as absent" : "Mark as present"}
                               >
                                 {isPresent && (
-                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                   </svg>
                                 )}
@@ -304,13 +330,13 @@ const GamePage: React.FC = () => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
                         Player
                       </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
                         Assists
                       </th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      <th className="px-2 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">
                         Goals
                       </th>
                     </tr>
@@ -320,55 +346,73 @@ const GamePage: React.FC = () => {
                       const playerStats = statsData[player.id] || getDefaultStats();
                       return (
                         <tr key={player.id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-gray-900">
+                          <td className="px-2 py-2">
+                            <div className="text-sm font-medium text-gray-900 break-words">
                               {player.name}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center justify-center space-x-2">
-                              <button
-                                onClick={() => updateStat(player.id, 'assists', false)}
-                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                                </svg>
-                              </button>
-                              <span className="text-lg font-medium w-8 text-center">
-                                {playerStats.assists || 0}
-                              </span>
-                              <button
-                                onClick={() => updateStat(player.id, 'assists', true)}
-                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                              </button>
+                          <td className="px-2 py-2 relative">
+                            <div className="flex items-center justify-center">
+                              <div className="relative w-16 h-10">
+                                {/* Value display */}
+                                <div className="absolute inset-0 flex items-center justify-center z-10">
+                                  <span className="text-lg font-medium">
+                                    {playerStats.assists || 0}
+                                  </span>
+                                </div>
+
+                                {/* Minus button (left) */}
+                                <button
+                                  onClick={() => updateStat(player.id, 'assists', false)}
+                                  className="absolute left-0 top-1/2 transform -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm z-20"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                                  </svg>
+                                </button>
+
+                                {/* Plus button (right) */}
+                                <button
+                                  onClick={() => updateStat(player.id, 'assists', true)}
+                                  className="absolute right-0 top-1/2 transform -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm z-20"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="flex items-center justify-center space-x-2">
-                              <button
-                                onClick={() => updateStat(player.id, 'goals', false)}
-                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-                                </svg>
-                              </button>
-                              <span className="text-lg font-medium w-8 text-center">
-                                {playerStats.goals || 0}
-                              </span>
-                              <button
-                                onClick={() => updateStat(player.id, 'goals', true)}
-                                className="w-8 h-8 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm"
-                              >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                </svg>
-                              </button>
+                          <td className="px-2 py-2 relative">
+                            <div className="flex items-center justify-center">
+                              <div className="relative w-16 h-10">
+                                {/* Value display */}
+                                <div className="absolute inset-0 flex items-center justify-center z-10">
+                                  <span className="text-lg font-medium">
+                                    {playerStats.goals || 0}
+                                  </span>
+                                </div>
+
+                                {/* Minus button (left) */}
+                                <button
+                                  onClick={() => updateStat(player.id, 'goals', false)}
+                                  className="absolute left-0 top-1/2 transform -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm z-20"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+                                  </svg>
+                                </button>
+
+                                {/* Plus button (right) */}
+                                <button
+                                  onClick={() => updateStat(player.id, 'goals', true)}
+                                  className="absolute right-0 top-1/2 transform -translate-y-1/2 w-7 h-7 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 flex items-center justify-center shadow-sm z-20"
+                                >
+                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                           </td>
                         </tr>
