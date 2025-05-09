@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { wudiInfo, wudiMapCoordinates } from '../data/sampleData';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const MainLayout: React.FC = () => {
+  const location = useLocation();
   const currentSeason = wudiInfo.current_season;
+  const isHomePage = location.pathname === '/';
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 overflow-x-hidden">
@@ -67,6 +70,7 @@ const MainLayout: React.FC = () => {
 
       <main className="flex-grow py-8">
         <div className="container mx-auto px-4">
+          {!isHomePage && <Breadcrumbs />}
           <Outlet />
         </div>
       </main>
