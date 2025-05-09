@@ -20,7 +20,7 @@ const TeamScoreHeader: React.FC<TeamScoreHeaderProps> = ({
   homeTeamScore,
   awayTeamScore,
   selectedTeam,
-  onTeamSelect
+  onTeamSelect,
 }) => {
   return (
     <div className="flex flex-col sm:flex-row">
@@ -36,10 +36,10 @@ const TeamScoreHeader: React.FC<TeamScoreHeaderProps> = ({
               {awayTeamScore}
             </span>
           </div>
-          <div className="text-xs text-gray-500 mt-1">Final Score</div>
+          <div className="text-xs text-gray-500 mt-1">Score</div>
         </div>
       </div>
-      
+
       <div className="flex justify-between items-center w-full">
         {/* Home Team Button */}
         <button
@@ -65,7 +65,7 @@ const TeamScoreHeader: React.FC<TeamScoreHeaderProps> = ({
                 {awayTeamScore}
               </span>
             </div>
-            <div className="text-xs text-gray-500 mt-1">Final Score</div>
+            <div className="text-xs text-gray-500 mt-1">Score</div>
           </div>
         </div>
 
