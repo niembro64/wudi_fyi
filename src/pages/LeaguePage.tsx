@@ -542,7 +542,7 @@ const LeaguePage: React.FC = () => {
           </h2>
           <div className="card overflow-hidden">
             <img
-              src="/gender_ratios.png"
+              src={`${process.env.PUBLIC_URL}/gender_ratios.png`}
               alt="Gender Ratios"
               className="w-full max-w-full h-auto rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
             />
@@ -556,7 +556,7 @@ const LeaguePage: React.FC = () => {
         </h2>
         <div className="card overflow-hidden p-0">
           <img
-            src="/fields_map.png"
+            src={`${process.env.PUBLIC_URL}/fields_map.png`}
             alt="Fields Map"
             className="w-full max-w-full h-auto"
           />

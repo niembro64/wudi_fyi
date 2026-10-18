@@ -202,7 +202,7 @@ const HomePage: React.FC = () => {
         
         <div className="mt-8 card overflow-hidden p-0">
           <img
-            src="/fields_map.png"
+            src={`${process.env.PUBLIC_URL}/fields_map.png`}
             alt="Fields Map"
             className="w-full max-w-full h-auto"
           />
